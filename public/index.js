@@ -1,4 +1,5 @@
 window.onload = ()=>{
+    showLoginBox()
     document.querySelector("#loginForm").addEventListener("submit",async (e)=>{
         e.preventDefault();
         const form = e.target;
@@ -14,4 +15,12 @@ window.onload = ()=>{
         })
 
     })
+}
+console.log("ABC")
+
+showLoginBox = ()=>{
+    document.querySelector("#loginBoxBtn").addEventListener("click",()=>{
+        document.querySelector(".loginBox").style.display = 'block';
+    }
+      )
 }
