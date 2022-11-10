@@ -46,6 +46,13 @@
     justify-content: center;
     display: none;
 }
+.registerBox{
+    width: 100vw;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    display: none;
+}
 .game{
     width: 200px;
     height: 200px;
