@@ -2,6 +2,7 @@ import express from "express"
 import expressSession from "express-session"
 import pg from "pg";
 import dotenv from "dotenv";
+
 // import path from "path";
 
 const app = express();
@@ -30,7 +31,9 @@ declare module 'express-session' {
 }
 
 app.use(express.static("./public"))
-// app.use(userLoggedInMiddleWare,express.static("./public"))
+
+import { userLoggedInMiddleWare } from "./middleware";
+app.use(userLoggedInMiddleWare,express.static("./public"))
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
