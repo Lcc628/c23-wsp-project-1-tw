@@ -9,6 +9,6 @@ CREATE TABLE users(
     address varchar(255),
     phone_number varchar(255),
     is_admin boolean,
-    created_at timestamp,
-    updated_at timestamp
+    created_at TIMESTAMP WITH TIME ZONE,
+    updated_at TIMESTAMP WITH TIME ZONE
 );

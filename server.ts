@@ -1,8 +1,8 @@
 import express from "express"
 import expressSession from "express-session"
-import { Request, Response } from 'express'
 import pg from "pg";
 import dotenv from "dotenv";
+// import path from "path";
 
 const app = express();
 dotenv.config();
@@ -25,25 +25,26 @@ app.use(
 
 declare module 'express-session' {
   interface SessionData {
-    user:{}
+    user: {}
   }
 }
 
 app.use(express.static("./public"))
+// app.use(userLoggedInMiddleWare,express.static("./public"))
 
-app.post('/login',async (req,res)=>{
-  const {username,password} = req.body;
-
-  const user = (await dbClient.query(`SELECT * FROM users where users.username=$1`,[username])).rows[0]
-  if(user?.password == password){
-    return res.status(200).json('correct password')
-  }else{
-    return res.status(500).json('invalid password')
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  const user = (await dbClient.query(`SELECT * FROM users where users.username=$1`, [username])).rows[0]
+  if (user.password === password) {
+    res.status(200).json({ message: 'success', username: user.username })
+  } else {
+    res.status(500).json('invalid password')
+    return
   }
 })
 
-app.get('/', function (req: Request, res: Response) {
-  res.redirect("/")
+app.use('/', (req, res) => {
+  res.redirect('/404.html')
 })
 
 

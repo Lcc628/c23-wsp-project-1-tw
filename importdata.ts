@@ -14,7 +14,7 @@ async function main() {
   console.log("db connected !!!");
 
   
-await client.query(/*sql*/`INSERT INTO users (username,password) VALUES ($1,$2),($3,$4);`,['lam@gmail.com','881229','hi@gmail.com','881229'])
+await client.query(/*sql*/`INSERT INTO users (username,password,email,icon,address,phone_number,is_admin,created_at,updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9);`,['chung','881229','hi@gmail.com','test.jpg','hk','123456','false','NOW()','NOW()'])
 const result = await client.query(`SELECT * FROM users`)
 console.log(result.rows)
 
