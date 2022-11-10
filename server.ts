@@ -69,6 +69,7 @@ app.post('/register',uploadMiddleWare, async (req, res) => {
   // }
 })
 
+
 app.use(express.static("public"))
 app.use(express.static("uploads"));
 app.use(userLoggedInMiddleWare,express.static("private"))
