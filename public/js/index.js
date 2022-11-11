@@ -3,6 +3,7 @@ window.onload = () => {
     showRegisterBox();
     login();
     register();
+    getGames();
 
 }
 
@@ -87,12 +88,45 @@ showRegisterBox = () =>{
     )
 }
 
-// getGames = () =>{
-//     const res = await fetch('/login', {
-//         method: "POST",
-//         headers: {
-//             'Content-Type': 'application/json; charset=utf-8',
-//         },
-//         body: JSON.stringify({ username, password }),
-//     })
-// }
+getGames = async() =>{
+    const res = await fetch('/games');
+    data = await res.json();
+
+    const gameListContainerDiv = document.querySelector(".gamelist-container");
+
+    for(let game of data){
+        const gameLsDiv = document.createElement("div");
+        const imgElement = document.createElement("img")
+        const desDiv = document.createElement("div");
+        const consoleElement = document.createElement("span")
+        const nameElement = document.createElement("h5")
+        const priceElement = document.createElement("h5")
+    
+        gameLsDiv.className = "game-ls"
+        imgElement.src = game.image;
+        desDiv.className = "des";
+        consoleElement.innerText = game.console;
+        nameElement.innerText = game.name;
+        priceElement.innerText = game.price;
+        
+        desDiv.appendChild(consoleElement);
+        desDiv.appendChild(nameElement);
+        gameLsDiv.appendChild(imgElement);
+        gameLsDiv.appendChild(desDiv);
+        gameLsDiv.appendChild(priceElement);
+        
+        gameListContainerDiv.appendChild(gameLsDiv)
+    }
+   
+
+    console.log(data)
+}
+
+/* <div class="game-ls">
+              <img src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg">
+              <div class="des">
+                  <span>Nintendo Switch 遊戲</span>
+                  <h5>NS Pokemon《寶可夢 朱/紫》</h5>
+              </div>
+              <h5>HKD$340.00 ~ 680.00</h5>
+            </div> */

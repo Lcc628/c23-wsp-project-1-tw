@@ -41,7 +41,7 @@ declare module 'express-session' {
 
 
 
-
+//user routes
 //login
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
@@ -72,14 +72,14 @@ app.post('/register',uploadMiddleWare, async (req, res) => {
 
 
 
+//games routes
+
+//homepage show game(image,price,name)
 app.get('/games',async(req,res)=>{
-  const games = (await dbClient.query(`SELECT name,price,image FROM games;`)).rows
+  const games = (await dbClient.query(`SELECT name,price,image,console FROM games;`)).rows
   res.json(games)
   console.log(games)
 })
-
-
-
 
 
 
