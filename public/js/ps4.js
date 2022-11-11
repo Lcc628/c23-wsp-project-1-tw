@@ -89,20 +89,19 @@ showRegisterBox = () =>{
 }
 
 getGames = async() =>{
-    const res = await fetch('/games');
+    const res = await fetch('/ps4Games');
     data = await res.json();
 
-    
     const gameListContainerDiv = document.querySelector(".gamelist-container");
 
     for(let game of data){
         if(game.is_valid){
             const gameLsDiv = document.createElement("div");
-        const imgElement = document.createElement("img")
-        const desDiv = document.createElement("div");
-        const consoleElement = document.createElement("span")
-        const nameElement = document.createElement("h5")
-        const priceElement = document.createElement("h5")
+            const imgElement = document.createElement("img")
+            const desDiv = document.createElement("div");
+            const consoleElement = document.createElement("span")
+            const nameElement = document.createElement("h5")
+            const priceElement = document.createElement("h5")
     
         gameLsDiv.className = "game-ls"
         imgElement.src = game.image;
@@ -122,12 +121,3 @@ getGames = async() =>{
     }
     console.log(data)
 }
-
-/* <div class="game-ls">
-              <img src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg">
-              <div class="des">
-                  <span>Nintendo Switch 遊戲</span>
-                  <h5>NS Pokemon《寶可夢 朱/紫》</h5>
-              </div>
-              <h5>HKD$340.00 ~ 680.00</h5>
-            </div> */

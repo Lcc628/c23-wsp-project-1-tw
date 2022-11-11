@@ -38,19 +38,16 @@ declare module 'express-session' {
 }
 
 
-
-
-
 //user routes
 //login
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   console.log(username)
   const user = (await dbClient.query(`SELECT * FROM users where users.username=$1`, [username])).rows[0]
-  if (user.password === password) {
+  if (user?.password == password) {
     req.session.user = {username:username}
     res.status(200).json({ message: 'login success',username})
-  } else {
+  } else{
     res.status(500).json({message:'login failed'})
     return
   }
@@ -81,7 +78,29 @@ app.get('/games',async(req,res)=>{
   console.log(games)
 })
 
+app.get('/ps4Games',async(req,res)=>{
+  const games = (await dbClient.query(`SELECT name,price,image,console,is_valid FROM games where games.console = $1;`,['PS4'])).rows
+  res.json(games)
+  console.log(games)
+})
 
+app.get('/switchGames',async(req,res)=>{
+  const games = (await dbClient.query(`SELECT name,price,image,console,is_valid FROM games where games.console = $1;`,['SWITCH'])).rows
+  res.json(games)
+  console.log(games)
+})
+
+app.get('/pcGames',async(req,res)=>{
+  const games = (await dbClient.query(`SELECT name,price,image,console,is_valid FROM games where games.console = $1;`,['PC'])).rows
+  res.json(games)
+  console.log(games)
+})
+
+app.get('/xboxGames',async(req,res)=>{
+  const games = (await dbClient.query(`SELECT name,price,image,console,is_valid FROM games where games.console = $1;`,['XBOX'])).rows
+  res.json(games)
+  console.log(games)
+})
 
 app.use(express.static("public"))
 app.use(express.static("uploads"));
