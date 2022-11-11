@@ -38,6 +38,11 @@ declare module 'express-session' {
 }
 
 
+
+
+
+
+//login
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   console.log(username)
@@ -60,14 +65,22 @@ app.post('/register',uploadMiddleWare, async (req, res) => {
   const address = info.address;
   const phoneNum = info.phoneNum;
   const icon = (req.form.files["icon"] as formidable.File)?.newFilename 
-  // if(!name||!password||!email||address||!phoneNum){
-  //   res.status(400).json({message:"please input all information"})
-  //   return
-  // }else{
-    await dbClient.query(/*sql*/`INSERT INTO users (username,password,email,icon,address,phone_number,is_admin,created_at,updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9);`,[name,password,email,icon,address,phoneNum,'false','NOW()','NOW()'])
+    await dbClient.query(/*sql*/`INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ($1,$2,$3,$4,$5,$6,$7);`,[name,password,email,icon,address,phoneNum,'false'])
     res.status(200).json({message:"created success"})
   // }
 })
+
+
+
+app.get('/games',async(req,res)=>{
+  const games = (await dbClient.query(`SELECT name,price,image FROM games;`)).rows
+  res.json(games)
+  console.log(games)
+})
+
+
+
+
 
 
 app.use(express.static("public"))
