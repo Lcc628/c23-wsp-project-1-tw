@@ -3,7 +3,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.699);
+}
+
+.top{
+    background-color: rgb(56, 56, 56);
+    z-index: 999;
+    position: sticky;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 5px 15px rgb(0, 0, 0, 0.06);
 }
 
 .navbar-nav {
@@ -49,6 +57,37 @@
 /* ShoppingCart */
 
 
+
+/* Product Card */
+#product1{
+    text-align: center;
+}
+
+#product1 .game-ls{
+    width: 25%;
+    min-width: 250px;
+    padding: 10px 12px;
+    border: 1px solid rgb(56, 56, 56) ;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 20px 20px 30px rgb(0, 0, 0, 0.02);
+    margin: 15px 0;
+    transition: 0.2sec ease;
+}
+
+#product1 .game-ls:hover{
+    box-shadow: 20px 20px 30px rgb(0, 0, 0, 0.06);
+}
+
+
+#product1 .game-ls img{
+    width: 100% ;
+    border-radius: 20px;
+}
+
+
+
+/* Product Card */
 
 
 .container{
