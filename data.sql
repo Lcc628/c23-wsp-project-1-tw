@@ -100,7 +100,7 @@ EXECUTE PROCEDURE trigger_set_timestamp();
 
 INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ('admin','881229','123@gmail.com','test.jpg','hk','123456','true'),('test','881229','hi@gmail.com','test.jpg','hk','1234567','false');
 
-INSERT INTO games (name,price,game_cate,image,console,description,is_valid) VALUES ('game1','100','RPG','game1.jpg','PS4','hihihihi','true'),('game2','200','RPG','game2.jpg','SWITCH','byebyebye','true');
+INSERT INTO games (name,price,game_cate,image,console,description,is_valid) VALUES ('game1','100','RPG','https://i.openshop.com.hk/upload/202003/5e81885bb7ad9.jpg','PS4','hihihihi','true'),('game2','200','RPG','https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg','SWITCH','byebyebye','true');
 
 INSERT INTO shopping_cart (user_id) VALUES ('1'),('2');
 
