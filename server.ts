@@ -76,7 +76,7 @@ app.post('/register',uploadMiddleWare, async (req, res) => {
 
 //homepage show game(image,price,name)
 app.get('/games',async(req,res)=>{
-  const games = (await dbClient.query(`SELECT name,price,image,console FROM games;`)).rows
+  const games = (await dbClient.query(`SELECT name,price,image,console,is_valid FROM games;`)).rows
   res.json(games)
   console.log(games)
 })

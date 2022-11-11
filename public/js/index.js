@@ -92,6 +92,7 @@ getGames = async() =>{
     const res = await fetch('/games');
     data = await res.json();
 
+    
     const gameListContainerDiv = document.querySelector(".gamelist-container");
 
     for(let game of data){
