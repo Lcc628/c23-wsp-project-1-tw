@@ -42,7 +42,6 @@ declare module 'express-session' {
 //login
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  console.log(username)
   const user = (await dbClient.query(`SELECT * FROM users where users.username=$1`, [username])).rows[0]
   if (user?.password == password) {
     req.session.user = {username:username}
@@ -52,6 +51,7 @@ app.post('/login', async (req, res) => {
     return
   }
 })
+
 
 //register path
 app.post('/register',uploadMiddleWare, async (req, res) => {
@@ -67,39 +67,50 @@ app.post('/register',uploadMiddleWare, async (req, res) => {
   // }
 })
 
+//get logged in user info
+app.get('/loginUserInfo',userLoggedInMiddleWare,async (req,res)=>{
+  const userInfo = (await dbClient.query(`SELECT * FROM users where users.username = $1;`,[req.session.user?.username])).rows[0]
+  res.json(userInfo)
+})
+
 
 
 //games routes
 
+//addToCart
+app.get("/games/:gid", async (req, res) => {
+  console.log(req.params.gid);
+  const userId = (await dbClient.query(`SELECT id FROM users where users.username = $1;`,[req.session.user?.username])).rows[0].id
+  await dbClient.query(/*sql*/`INSERT INTO shopping_cart (user_id) VALUES ($1);`,[userId])
+  res.json({message:"hi"})
+  // const gameId = parseInt(req.params.gid, 10);
+  // console.log(gameId)
+});
+
 //homepage show game(image,price,name)
 app.get('/games',async(req,res)=>{
-  const games = (await dbClient.query(`SELECT name,price,image,console,is_valid FROM games;`)).rows
+  const games = (await dbClient.query(`SELECT * FROM games;`)).rows
   res.json(games)
-  console.log(games)
 })
 
 app.get('/ps4Games',async(req,res)=>{
-  const games = (await dbClient.query(`SELECT name,price,image,console,is_valid FROM games where games.console = $1;`,['PS4'])).rows
+  const games = (await dbClient.query(`SELECT * FROM games where games.console = $1;`,['PS4'])).rows
   res.json(games)
-  console.log(games)
 })
 
 app.get('/switchGames',async(req,res)=>{
-  const games = (await dbClient.query(`SELECT name,price,image,console,is_valid FROM games where games.console = $1;`,['SWITCH'])).rows
+  const games = (await dbClient.query(`SELECT * FROM games where games.console = $1;`,['SWITCH'])).rows
   res.json(games)
-  console.log(games)
 })
 
 app.get('/pcGames',async(req,res)=>{
-  const games = (await dbClient.query(`SELECT name,price,image,console,is_valid FROM games where games.console = $1;`,['PC'])).rows
+  const games = (await dbClient.query(`SELECT * FROM games where games.console = $1;`,['PC'])).rows
   res.json(games)
-  console.log(games)
 })
 
 app.get('/xboxGames',async(req,res)=>{
-  const games = (await dbClient.query(`SELECT name,price,image,console,is_valid FROM games where games.console = $1;`,['XBOX'])).rows
+  const games = (await dbClient.query(`SELECT * FROM games where games.console = $1;`,['XBOX'])).rows
   res.json(games)
-  console.log(games)
 })
 
 app.use(express.static("public"))

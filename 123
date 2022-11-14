@@ -1,0 +1,116 @@
+<!-- Modal
+<div class="modal fade" id="game1" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body"> add
+        <div class="row">
+          <img class="col-md-6" src="https://i.openshop.com.hk/upload/202003/5e81885bb7ad9.jpg">
+          <div class="col-md-6">  info div
+            <div class="row">   info row div
+              <span>name</span>
+              <span>price</span>
+              <span>console</span>
+              <span>description</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">add to shopping cart</button>
+      </div>
+    </div>
+  </div>
+</div>-->
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<div class="loginBox">
+    <form method="post" id="loginForm">
+      <input type="text" placeholder="username" name="username" value=""><br>
+      <input type="password" placeholder="password" name="password" value=""><br>
+      <input type="submit" placeholder="submit">
+    </form>
+  </div>
+
+  <div class="registerBox">
+    <form method="post" id="registerForm">
+      <input type="text" placeholder="username" name="username"><br>
+      <input type="password" placeholder="password" name="password"><br>
+      <input type="text" placeholder="email" name="email" ><br>
+      <input type="text" placeholder="address" name="address"><br>
+      <input type="text" placeholder="phone number" name="phoneNum"><br>
+      <input type="file" id="icon" name="icon" accept="image/png, image/jpeg"><br>
+      <input type="submit" placeholder="submit">
+    </form>
+  </div>
+
+  <div class="btn-group">
+    <button class="shopping-cart btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+      <i class="bi bi-cart3 "></i>
+        <span>購物車</span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" >
+        <div class="row">
+          <img class = "col-md-2"src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg">
+          <div class="col-md-6">
+            <div class="row">
+              <span>name</span>
+              <span>price</span>
+            </div>
+          </div>
+        </div>
+      </a></li>
+      <li><a class="dropdown-item" >
+        <div class="row">
+          <img class = "col-md-2"src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg">
+          <div class="col-md-6">
+            <div class="row">
+              <span>name</span>
+              <span>price</span>
+            </div>
+          </div>
+        </div>
+      </a></li>
+      <li><hr class="dropdown-divider"></li>
+      <button type="button" class="btn btn-primary" href="./pay.html">pay</button>
+    </ul>
+  </div>
+
+  <div class="shopping-cart btn btn-secondary dropdown-toggle" type="button"data-bs-toggle="dropdown" data-bs-auto-close="outside"
+  aria-expanded="false">
+    <i class="bi bi-cart3 "></i>
+        <span>購物車</span>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" >
+        <div class="row">
+          <img class = "col-md-2"src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg">
+          <div class="col-md-6">
+            <div class="row">
+              <span>name</span>
+              <span>price</span>
+            </div>
+          </div>
+        </div>
+      </a></li>
+      <li><a class="dropdown-item" >
+        <div class="row">
+          <img class = "col-md-2"src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg">
+          <div class="col-md-6">
+            <div class="row">
+              <span>name</span>
+              <span>price</span>
+            </div>
+          </div>
+        </div>
+      </a></li>
+      <li><hr class="dropdown-divider"></li>
+      <button type="button" class="btn btn-primary" href="./pay.html">pay</button>
+    </ul>
+  </div>

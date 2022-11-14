@@ -9,7 +9,6 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY,
     username varchar(255) NOT NULL UNIQUE,
@@ -58,7 +57,8 @@ EXECUTE PROCEDURE trigger_set_timestamp();
 
 CREATE TABLE IF NOT EXISTS game_shoppingCart_Map(
     id SERIAL PRIMARY KEY,
-    game_id int REFERENCES games(id) ON DELETE CASCADE,
+    game_id int,
+    FOREIGN KEY (game_id) REFERENCES games(id) ON DELETE CASCADE,
     shopping_cart_id int,
     FOREIGN KEY (shopping_cart_id) REFERENCES shopping_cart(id) ON DELETE CASCADE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -103,12 +103,12 @@ INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) V
 INSERT INTO games (name,price,game_cate,image,console,description,is_valid) VALUES ('game1','100','RPG','https://i.openshop.com.hk/upload/202003/5e81885bb7ad9.jpg','PS4','hihihihi','true'),('game2','200','RPG','https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg','SWITCH','byebyebye','true'),('game3','400','RPG','https://i.openshop.com.hk/upload/202006/5ed5caae2216d.jpg','PS4','hihihihi','true'),
 ('game4','500','RPG','https://img.openshop.com.hk/s2/202208/630454b0be157.jpg','SWITCH','hihihihi','true'),('game5','500','RPG','https://img.openshop.com.hk/s2/202208/62ff59c56c3ef.jpg','PC','hihihihi','true'),('game6','500','RPG','https://img.openshop.com.hk/s2/202209/63356bc5b09fb.jpg','XBOX','hihihihi','true');
 
-INSERT INTO shopping_cart (user_id) VALUES ('1'),('2');
+-- INSERT INTO shopping_cart (user_id) VALUES ('1'),('2');
 
-INSERT INTO game_shoppingCart_Map (game_id,shopping_cart_id) VALUES ('1','1'),('2','1');
+-- INSERT INTO game_shoppingCart_Map (game_id,shopping_cart_id) VALUES ('1','1'),('2','1');
 
-INSERT INTO transaction (user_id,total_amount) VALUES ('1','200'),('2','200');
+-- INSERT INTO transaction (user_id,total_amount) VALUES ('1','200'),('2','200');
 
-INSERT INTO transaction_detail (price,quanity,transaction_id,game_id) VALUES ('100','10','1','1'),('100','5','1','2');
+-- INSERT INTO transaction_detail (price,quanity,transaction_id,game_id) VALUES ('100','10','1','1'),('100','5','1','2');
 
 

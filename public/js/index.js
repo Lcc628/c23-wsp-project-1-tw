@@ -1,9 +1,8 @@
 window.onload = () => {
-    showLoginBox();
-    showRegisterBox();
     login();
     register();
     getGames();
+    genGameModal();
 
 }
 
@@ -34,7 +33,6 @@ register = () =>{
         }else{
             alert(data.message)
         }
-
     })
 }
 
@@ -65,34 +63,10 @@ login = () => {
 
 }
 
-showLoginBox = () => {
-    document.querySelector("#loginBoxBtn").addEventListener("click", () => {
-        const display = document.querySelector(".loginBox").style.display
-        if (display == 'block') {
-            document.querySelector(".loginBox").style.display = 'none';
-        } else {
-            document.querySelector(".loginBox").style.display = 'block';
-        }
-    }
-    )
-}
-showRegisterBox = () =>{
-    document.querySelector("#registerBoxBtn").addEventListener("click", () => {
-        const display = document.querySelector(".registerBox").style.display
-        if (display == 'block') {
-            document.querySelector(".registerBox").style.display = 'none';
-        } else {
-            document.querySelector(".registerBox").style.display = 'block';
-        }
-    }
-    )
-}
-
 getGames = async() =>{
     const res = await fetch('/games');
     data = await res.json();
 
-    
     const gameListContainerDiv = document.querySelector(".gamelist-container");
 
     for(let game of data){
@@ -105,11 +79,13 @@ getGames = async() =>{
         const priceElement = document.createElement("h5")
     
         gameLsDiv.className = "game-ls"
+        gameLsDiv.dataset.bsToggle = "modal"
+        gameLsDiv.dataset.bsTarget = `#${game.name}`
         imgElement.src = game.image;
         desDiv.className = "des";
         consoleElement.innerText = game.console;
         nameElement.innerText = game.name;
-        priceElement.innerText = game.price;
+        priceElement.innerText = `$${game.price}`;
         
         desDiv.appendChild(consoleElement);
         desDiv.appendChild(nameElement);
@@ -123,6 +99,8 @@ getGames = async() =>{
     console.log(data)
 }
 
+
+
 /* <div class="game-ls">
               <img src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg">
               <div class="des">
@@ -131,3 +109,86 @@ getGames = async() =>{
               </div>
               <h5>HKD$340.00 ~ 680.00</h5>
             </div> */
+
+
+
+genGameModal = async() =>{
+    const res = await fetch('/games');
+    data = await res.json();
+
+    const gameListContainerDiv = document.querySelector(".gamelist-container");
+
+    for(let game of data){
+        if(game.is_valid){
+            const modalFadeDiv = document.createElement("div")
+            const modalDialogDiv = document.createElement("div")
+            const modalContentDiv = document.createElement("div")
+            const modalHeaderDiv = document.createElement("div")
+            const closeBtn = document.createElement("button")
+            const modalBodyDiv = document.createElement("div")
+            const imgRowDiv = document.createElement("div")
+            const gameImgElem = document.createElement("img")
+            const gameInfoDiv = document.createElement("div")
+            const infoRowDiv = document.createElement("div")
+            const nameSpan = document.createElement("span")
+            const priceSpan = document.createElement("span")
+            const consoleSpan = document.createElement("span")
+            const cateSpan = document.createElement("span")
+            const desSpan = document.createElement("span")
+            const modalFooterDiv = document.createElement("div")
+
+            modalFooterDiv.className = "modal-footer"
+
+            nameSpan.innerText = (game.name)
+            priceSpan.innerText = (game.price)
+            consoleSpan.innerText = (game.console)
+            cateSpan.innerText = (game.game_cate)
+            desSpan.innerText = (game.description)
+            
+            infoRowDiv.className = "row"
+            infoRowDiv.appendChild(nameSpan)
+            infoRowDiv.appendChild(priceSpan)
+            infoRowDiv.appendChild(consoleSpan)
+            infoRowDiv.appendChild(cateSpan)
+            infoRowDiv.appendChild(desSpan)
+
+            gameInfoDiv.className = "col-md-6"
+            gameInfoDiv.append(infoRowDiv)
+
+            gameImgElem.className = "col-md-6"
+            gameImgElem.src = game.image;
+
+            imgRowDiv.className = "row"
+            imgRowDiv.appendChild(gameImgElem)
+            imgRowDiv.appendChild(gameInfoDiv)
+
+            modalBodyDiv.className = "modal-body"
+            modalBodyDiv.appendChild(imgRowDiv)
+
+            closeBtn.type = "button"
+            closeBtn.className = "btn-close"
+            closeBtn.dataset.bsDismiss = "modal"
+            closeBtn.ariaLabel = "Close"
+            modalHeaderDiv.className = "modal-header"
+            modalHeaderDiv.appendChild(closeBtn)
+
+            modalContentDiv.className = "modal-content"
+            modalContentDiv.appendChild(modalHeaderDiv)
+            modalContentDiv.appendChild(modalBodyDiv)
+            modalContentDiv.appendChild(modalFooterDiv)
+
+            modalDialogDiv.className = "modal-dialog modal-xl"
+            modalDialogDiv.appendChild(modalContentDiv)
+
+            modalFadeDiv.className = "modal fade"
+            modalFadeDiv.id = `${game.name}`
+            modalFadeDiv.tabIndex = "-1"
+            modalFadeDiv.ariaHidden = "true"
+            modalFadeDiv.appendChild(modalDialogDiv)
+
+            gameListContainerDiv.appendChild(modalFadeDiv)
+
+        }
+    }
+    console.log(data)
+}
