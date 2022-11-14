@@ -150,23 +150,24 @@ genGameModal = async() =>{
 }
 
 addToCart = () =>{
+    // let totalPrice = 0;
     const gameCartDiv =document.querySelector("#gameCart")
     const totalPriceSpan = document.querySelector("#totalPrice") 
     document.querySelectorAll(".modal-xl .btn").forEach(e =>{
         e.addEventListener("click",async(e)=>{
             console.log('click')
-            // totalPriceSpan.innerHTML = ""
+
             gameCartDiv.innerHTML = ""
             const addBtn = e.target;
             const id = addBtn.id.split("-")[1];
             res = await fetch(`/games/${id}`)
             const data = await res.json();
+            if(res.status = '200'){
+                alert("add item success")
+            }
             console.log(data)
 
-            for(let game of data){
-                // let totalPrice = 0;
-                // totalPrice += game.price 
-                
+            for(let game of data){                
                 const nameSpan = document.createElement("span")
                 const priceSpan = document.createElement("span")
                 nameSpan.innerText = `name: ${game.name}`
