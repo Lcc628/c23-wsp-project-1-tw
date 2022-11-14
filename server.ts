@@ -75,7 +75,7 @@ app.post('/register', uploadMiddleWare, async (req, res) => {
 
 //get logged in user info
 app.get('/loginUserInfo', userLoggedInMiddleWare, async (req, res) => {
-  const userInfo = (await dbClient.query(`SELECT * FROM users where users.username = $1;`, [req.session.user?.username])).rows[0]  //req.session.user?.username = {username:admin}
+  const userInfo = (await dbClient.query(`SELECT * FROM users where users.username = $1;`, [req.session.user?.username])).rows[0] 
   console.log("req.session.user: ", req.session.user)
   res.json(userInfo)
 })
@@ -96,9 +96,8 @@ app.get("/games/:gid", async (req, res) => {
 
   console.log(gamesAdded)
 
-  res.json(gamesAdded)
-  // const gameId = parseInt(req.params.gid, 10);
-  // console.log(gameId)
+  res.status(200).json(gamesAdded)
+
 });
 
 //homepage show game(image,price,name)
