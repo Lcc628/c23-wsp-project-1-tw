@@ -150,14 +150,52 @@ genGameModal = async() =>{
 }
 
 addToCart = () =>{
-    document.querySelectorAll(".modal-content .btn").forEach(e =>{
+    const gameCartDiv =document.querySelector("#gameCart")
+    const totalPriceSpan = document.querySelector("#totalPrice") 
+    document.querySelectorAll(".modal-xl .btn").forEach(e =>{
         e.addEventListener("click",async(e)=>{
             console.log('click')
+            // totalPriceSpan.innerHTML = ""
+            gameCartDiv.innerHTML = ""
             const addBtn = e.target;
             const id = addBtn.id.split("-")[1];
             res = await fetch(`/games/${id}`)
             const data = await res.json();
             console.log(data)
+
+            for(let game of data){
+                // let totalPrice = 0;
+                // totalPrice += game.price 
+                
+                const nameSpan = document.createElement("span")
+                const priceSpan = document.createElement("span")
+                nameSpan.innerText = `name: ${game.name}`
+                priceSpan.innerText = `price: ${game.price}`
+
+                const gameInfoDiv = document.createElement("div")
+                gameInfoDiv.className = "row"
+                gameInfoDiv.appendChild(nameSpan)
+                gameInfoDiv.appendChild(priceSpan)
+
+                const infoColDiv = document.createElement("div")
+                infoColDiv.className = "col-md-4"
+                infoColDiv.appendChild(gameInfoDiv)
+
+                const imgDiv = document.createElement("img")
+                imgDiv.className = "col-md-3"
+                imgDiv.src = `${game.image}`
+
+                const gamesDivRow = document.createElement("div")
+                gamesDivRow.className = "row"
+                gamesDivRow.appendChild(imgDiv)
+                gamesDivRow.appendChild(infoColDiv)
+
+                gameCartDiv.appendChild(gamesDivRow)
+                // totalPriceSpan.innerText = `total price: ${totalPrice}`
+                
+            
+            }
+            
         })
     })
 }

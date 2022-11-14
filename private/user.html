@@ -29,46 +29,10 @@
       </div>
       <h1 id="userName">1</h1>
 
-      <button class="shopping-cart btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+      <button class="shopping-cart btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#cart">
         <i class="bi bi-cart3 "></i>
           <span>購物車</span>
       </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" >
-          <div class="row">
-            <img class = "col-md-2"src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg">
-            <div class="col-md-6">
-              <div class="row">
-                <span>name</span>
-                <span>price</span>
-              </div>
-            </div>
-          </div>
-        </a></li>
-        <li><a class="dropdown-item" href="./pay.html">
-          <div class="row">
-            <img class = "col-md-2"src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg">
-            <div class="col-md-6">
-              <div class="row">
-                <span>name</span>
-                <span>price</span>
-              </div>
-            </div>
-          </div>
-        </a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li>
-          
-          <a class="dropdown-item d-flex justify-content-md-between" href="./pay.html">
-            <span>total price: </span>
-            <button type="button" class="btn btn-primary">pay</button>
-          </a>
-        </li>
-      </ul>
-      <!-- <div class="shopping-cart">
-        <i class="bi bi-cart3"></i>
-        <span>購物車</span>
-      </div> -->
     </section>
   
     <div class="barLogin">
@@ -211,6 +175,26 @@
       </div>
     </footer>
 
+    <!-- Modal -->
+<div class="modal fade" id="cart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">shopping-cart</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id ="gameCart">
+        <div class="row">
+
+        </div>
+      </div>
+      <div class="modal-footer justify-content-md-between">
+        <span id="totalPrice"></span>
+        <button type="button" class="btn btn-primary" href="./pay.html">pay</button>
+      </div>
+    </div>
+  </div>
+</div>
    
     
     
