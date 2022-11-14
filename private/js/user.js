@@ -3,6 +3,21 @@ window.onload = async() => {
     await genGameModal();
     await getUserInfo();
     await addToCart();
+    await logout();
+    await clearCart();
+}
+
+logout = async() =>{
+    document.querySelector('#logOutBtn').addEventListener('click',async (e)=>{
+        console.log('click')
+        const res = await fetch('/logout');
+        data = await res.json()
+        console.log(data)
+        if(data.status = '200'){
+            alert("logged out")
+            window.location = "./"
+        }
+    })
 }
 
 getUserInfo = async() =>{
@@ -199,4 +214,19 @@ addToCart = () =>{
             
         })
     })
+}
+
+clearCart = () =>{
+    document.querySelector("#clearBtn").addEventListener("click",async (e)=>{
+        const res = await fetch('/clearCart');
+        
+        data = await res.json();
+        console.log(data)
+        const cartContent = document.querySelector("#gameCart")
+        cartContent.innerHTML=""
+        if(res.status=='200'){
+            alert("clear success")
+        }
+    })
+    
 }

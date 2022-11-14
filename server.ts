@@ -55,6 +55,16 @@ app.post('/login', async (req, res) => {
   }
 })
 
+<<<<<<< HEAD
+//logout
+app.get('/logout',async (req, res) => {
+  console.log(req.session.user)
+  if(req.session.user){
+    delete req.session.user;
+    res.status(200).json({message:"delete session success"})
+  }
+})
+=======
 // //logout
 // app.get('/logout', (req, res) => {
 //   req.session.destroy(function(err){
@@ -75,6 +85,7 @@ app.post('/login', async (req, res) => {
 // }
 
 
+>>>>>>> dc34effcb3db4ad9d94f55d42b7d71bd30f645a0
 
 
 //register path
@@ -120,6 +131,16 @@ app.get("/games/:gid", async (req, res) => {
   res.status(200).json(gamesAdded)
 
 });
+
+//clearCart
+app.get('/clearCart',async(req,res)=>{
+  const userId = req.session.user?.userId;
+  const userShoppingCartID = (await dbClient.query(`SELECT id FROM shopping_cart where user_id = $1`,[userId])).rows[0].id
+  console.log(userShoppingCartID)
+  await dbClient.query(`DELETE FROM game_shoppingCart_Map WHERE shopping_cart_id =$1`,[userShoppingCartID])
+  res.status(200).json({message:"clear success"})
+
+})
 
 //homepage show game(image,price,name)
 app.get('/games', async (req, res) => {
