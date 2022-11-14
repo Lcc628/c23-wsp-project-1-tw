@@ -55,6 +55,15 @@ app.post('/login', async (req, res) => {
   }
 })
 
+// //logout
+// app.get("/logout", logout);
+// async function logout(req: express.Request, res: express.Response) {
+//   delete req.session.user;
+//   res.redirect("/");
+// }
+
+
+
 
 //register path
 app.post('/register', uploadMiddleWare, async (req, res) => {
