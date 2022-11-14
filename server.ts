@@ -66,6 +66,18 @@ app.get('/logout',async (req, res) => {
 })
 
 // //logout
+// app.get('/logout', (req, res) => {
+//   req.session.destroy(function(err){
+//     if(err){
+//       console.log(err);
+//       res.send("Error")
+//     } else {
+//       res.render('base',{title:"Express",logout : "Logout Successfully!!"})
+//     }
+//   })
+// })
+
+
 // app.get("/logout", logout);
 // async function logout(req: express.Request, res: express.Response) {
 //   delete req.session.user;
