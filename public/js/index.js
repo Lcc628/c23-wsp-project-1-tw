@@ -60,7 +60,6 @@ login = () => {
         }
 
     })
-
 }
 
 getGames = async() =>{

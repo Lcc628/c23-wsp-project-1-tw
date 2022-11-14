@@ -55,7 +55,7 @@ app.post('/login', async (req, res) => {
   }
 })
 
-<<<<<<< HEAD
+
 //logout
 app.get('/logout',async (req, res) => {
   console.log(req.session.user)
@@ -64,7 +64,7 @@ app.get('/logout',async (req, res) => {
     res.status(200).json({message:"delete session success"})
   }
 })
-=======
+
 // //logout
 // app.get("/logout", logout);
 // async function logout(req: express.Request, res: express.Response) {
@@ -73,7 +73,6 @@ app.get('/logout',async (req, res) => {
 // }
 
 
->>>>>>> dc34effcb3db4ad9d94f55d42b7d71bd30f645a0
 
 
 //register path
