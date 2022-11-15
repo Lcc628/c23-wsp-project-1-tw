@@ -5,6 +5,7 @@ window.onload = async() => {
   await addToCart();
   await logout();
   await clearCart();
+  await uploadForm();
 }
 
 logout = async() =>{
@@ -232,4 +233,11 @@ clearCart = () =>{
 }
 
 
+const uploadForm = () => {
+  const form = document.querySelector('#upform')
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    console.log('click')
+  })
 
+}
