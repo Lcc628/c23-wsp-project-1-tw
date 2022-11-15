@@ -6,6 +6,7 @@ import { userLoggedInMiddleWare } from "./middleware";
 import fs from "fs"
 import { uploadMiddleWare } from "./middleware";
 import formidable from "formidable";
+
 // import path from "path";
 
 const app = express();
@@ -46,6 +47,7 @@ declare module 'express-session' {
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const user = (await dbClient.query(`SELECT * FROM users where users.username=$1`, [username])).rows[0]
+
   if (user?.password == password) {
     req.session.user = { username: username, userId: user.id }
     res.status(200).json({ message: 'login success', username })
@@ -74,7 +76,7 @@ app.post('/register', uploadMiddleWare, async (req, res) => {
   const address = info.address;
   const phoneNum = info.phoneNum;
   const icon = (req.form.files["icon"] as formidable.File)?.newFilename
-  await dbClient.query(/*sql*/`INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ($1,$2,$3,$4,$5,$6,$7);`, [name, password, email, icon, address, phoneNum, 'false'])
+  await dbClient.query(/*sql*/`INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ($1,$2,$3,$4,$5,$6,$7);`, [name,password, email, icon, address, phoneNum, 'false']) // 
   const registerId = (await dbClient.query(`SELECT * FROM users where users.username = $1;`, [name])).rows[0].id
   console.log("registerId: ", registerId)
   await dbClient.query(/*sql*/`INSERT INTO shopping_cart (user_id) VALUES ($1);`, [registerId])
@@ -87,6 +89,7 @@ app.get('/loginUserInfo', userLoggedInMiddleWare, async (req, res) => {
   const userInfo = (await dbClient.query(`SELECT * FROM users where users.username = $1;`, [req.session.user?.username])).rows[0] 
   res.json(userInfo)
 })
+
 
 
 
