@@ -111,4 +111,3 @@ INSERT INTO shopping_cart (user_id) VALUES ('1');
 
 -- INSERT INTO transaction_detail (price,quanity,transaction_id,game_id) VALUES ('100','10','1','1'),('100','5','1','2');
 
-

@@ -14,7 +14,7 @@ logout = async() =>{
         data = await res.json()
         console.log(data)
         if(data.status = '200'){
-            alert("logged out")
+            alert("Logged out")
             window.location = "./"
         }
     })
