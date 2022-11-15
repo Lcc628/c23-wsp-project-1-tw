@@ -26,7 +26,7 @@ dbClient.connect();
 
 app.use(
   expressSession({
-    secret: 'Tecky Academy teaches typescript',
+    secret: Math.random().toString(32).slice(2),
     resave: true,
     saveUninitialized: true,
   }),
@@ -166,6 +166,18 @@ app.get('/clearCart',async(req,res)=>{
   res.status(200).json({message:"clear success"})
 
 })
+
+//Admin Post Rounte//
+// app.post("/upformPhoto",async(req,res)=>{
+//   form.parse(req, (err, fields, files) => {
+//     console.log({ err, fields, files });
+//     res.json(message:" Admin Post");
+//   });
+// })
+
+
+
+
 
 //homepage show game(image,price,name)
 app.get('/games', async (req, res) => {
