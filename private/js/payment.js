@@ -1,7 +1,7 @@
 window.onload = async () => {
     await inputUserInfoAuto();
     await getCartInfo();
-    await transactionBtn();
+    // await transactionBtn();
 }
 
 inputUserInfoAuto = async () => {
@@ -39,25 +39,25 @@ getCartInfo = async () => {
     cartProductList.innerHTML = cartProductHTML + totalPriceHTML
 }
 
-transactionBtn = () => {
-    // let totalPrice = 0;
-    // const res = await fetch('/getCartInfo');
-    // data = await res.json();
-    // for(let cartProduct of data){
-    //     totalPrice += parseInt(cartProduct.price);
-    // }
-    // console.log("totalPrice: ",totalPrice)
-    // document.querySelector("#transactionBtn").addEventListener("click",async (e)=>{
-    //     const res = await fetch('/getCartInfo');
-    //     data = await res.json();
+// transactionBtn = () => {
+//     // let totalPrice = 0;
+//     // const res = await fetch('/getCartInfo');
+//     // data = await res.json();
+//     // for(let cartProduct of data){
+//     //     totalPrice += parseInt(cartProduct.price);
+//     // }
+//     // console.log("totalPrice: ",totalPrice)
+//     // document.querySelector("#transactionBtn").addEventListener("click",async (e)=>{
+//     //     const res = await fetch('/getCartInfo');
+//     //     data = await res.json();
 
-    //     window.location = "./transaction.html"
-    // )
-    // }
-    document.querySelector("#transactionBtn").addEventListener("click", async(e) => {
-        const res = await fetch('/transaction');
-        data = await res.json();
-        console.log("games : ",data)
-        window.location = "./transaction.html"
-    })
-}
+//     //     window.location = "./transaction.html"
+//     // )
+//     // }
+//     document.querySelector("#transactionBtn").addEventListener("click", async(e) => {
+//         const res = await fetch('/transaction');
+//         data = await res.json();
+//         console.log("games : ",data)
+//         window.location = "./transaction.html"
+//     })
+// }
