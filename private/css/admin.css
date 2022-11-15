@@ -246,7 +246,19 @@ footer .copyright{
 }
 
 /* Up-Items */
-
-
+.upitems-con {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 24px;
+  
+}
+.upform {
+ width: 70%;
+ margin: 0 auto;
+margin-top: 24px;
+}
 
 /* Up-Items */
+
