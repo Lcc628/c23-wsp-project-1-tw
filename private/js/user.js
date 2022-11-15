@@ -165,9 +165,9 @@ genGameModal = async() =>{
 }
 
 addToCart = () =>{
-    // let totalPrice = 0;
+
     const gameCartDiv =document.querySelector("#gameCart")
-    const totalPriceSpan = document.querySelector("#totalPrice") 
+
     document.querySelectorAll(".modal-xl .btn").forEach(e =>{
         e.addEventListener("click",async(e)=>{
             console.log('click')
@@ -207,7 +207,6 @@ addToCart = () =>{
                 gamesDivRow.appendChild(infoColDiv)
 
                 gameCartDiv.appendChild(gamesDivRow)
-                // totalPriceSpan.innerText = `total price: ${totalPrice}`
                 
             
             }

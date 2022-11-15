@@ -85,13 +85,23 @@ app.post('/register', uploadMiddleWare, async (req, res) => {
 //get logged in user info
 app.get('/loginUserInfo', userLoggedInMiddleWare, async (req, res) => {
   const userInfo = (await dbClient.query(`SELECT * FROM users where users.username = $1;`, [req.session.user?.username])).rows[0] 
-  console.log("req.session.user: ", req.session.user)
   res.json(userInfo)
 })
 
 
 
 //games routes
+
+//getCartInfo
+app.get("/getCartInfo", async (req, res) => {
+  const userId = req.session.user?.userId;
+  const cartId = (await dbClient.query(`SELECT * FROM shopping_cart where shopping_cart.user_id = $1;`, [userId])).rows[0].id
+  const games = (await dbClient.query(`SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;`,[cartId])).rows
+  console.log(games)
+  res.status(200).json(games)
+
+});
+
 
 //addToCart
 app.get("/games/:gid", async (req, res) => {
@@ -101,8 +111,11 @@ app.get("/games/:gid", async (req, res) => {
 
   await dbClient.query(/*sql*/`INSERT INTO game_shoppingCart_Map (game_id,shopping_cart_id) VALUES ($1,$2);`, [gameId, cartId])
 
-  const gamesAdded = (await dbClient.query(`SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id`)).rows
+  const gamesAdded = (await dbClient.query(`SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;`,[cartId])).rows
+//SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id ;
 
+//SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;
+  //SELECT shopping_cart_id FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id join shopping_cart on shopping_cart_id = shopping_cart.id;
   console.log(gamesAdded)
 
   res.status(200).json(gamesAdded)
