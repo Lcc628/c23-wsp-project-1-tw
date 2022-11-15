@@ -42,6 +42,43 @@ declare module 'express-session' {
 }
 
 
+//transaction route
+//testing
+//insert data to transaction , transaction_detail  table
+
+// app.get('/transaction',async(req,res)=>{
+//   const userId = req.session.user?.userId;
+//   const cartId = (await dbClient.query(`SELECT * FROM shopping_cart where shopping_cart.user_id = $1;`, [userId])).rows[0].id
+//   const games = (await dbClient.query(`SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;`,[cartId])).rows
+//   let totalPrice = 0;
+ 
+//   await dbClient.query(`INSERT INTO transaction (user_id,total_amount) VALUES ($1,$2);`, [userId,totalPrice])
+//   const userTransactionId = (await dbClient.query(`SELECT * FROM transaction WHERE user_id = $1;`,[userId])).rows[0].id
+//   console.log(userTransactionId)
+
+//   for(let game of games){
+//     totalPrice += parseInt(game.price)
+//     await dbClient.query(`INSERT INTO transaction_detail (transaction_id,game_id) VALUES ($1,$2);`, [userTransactionId,game.id])
+//   }
+//   console.log(totalPrice)
+//   res.json(games)
+// })
+
+// //get transaction_detail data (games u bought)
+
+// app.get('/getTransactionData',async(req,res)=>{
+//   const userId = req.session.user?.userId;
+
+//   const userTransactionId = (await dbClient.query(`SELECT * FROM transaction WHERE user_id = $1;`,[userId])).rows[0].id
+//   console.log(userTransactionId)
+//   const games = (await dbClient.query(`SELECT * FROM transaction join transaction_detail on transaction.id = transaction_detail.game_id join games on transaction_id = games.id;`)).rows
+//   //SELECT * FROM games join transaction_detail on games.id = transaction_detail.game_id join transaction on transaction_id = transaction.id;
+//    //SELECT * FROM transaction_detail join games on transaction_detail.game_id = games.id join transaction on transaction_id = transaction.id;
+//   console.log(games)
+// })
+
+
+
 //user routes
 //login
 app.post('/login', async (req, res) => {
@@ -59,7 +96,6 @@ app.post('/login', async (req, res) => {
 
 //logout
 app.get('/logout',async (req, res) => {
-  console.log(req.session.user)
   if(req.session.user){
     delete req.session.user;
     res.status(200).json({message:"delete session success"})
@@ -78,7 +114,6 @@ app.post('/register', uploadMiddleWare, async (req, res) => {
   const icon = (req.form.files["icon"] as formidable.File)?.newFilename
   await dbClient.query(/*sql*/`INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ($1,$2,$3,$4,$5,$6,$7);`, [name,password, email, icon, address, phoneNum, 'false']) // 
   const registerId = (await dbClient.query(`SELECT * FROM users where users.username = $1;`, [name])).rows[0].id
-  console.log("registerId: ", registerId)
   await dbClient.query(/*sql*/`INSERT INTO shopping_cart (user_id) VALUES ($1);`, [registerId])
   res.status(200).json({ message: "created success" })
   // }
@@ -100,7 +135,6 @@ app.get("/getCartInfo", async (req, res) => {
   const userId = req.session.user?.userId;
   const cartId = (await dbClient.query(`SELECT * FROM shopping_cart where shopping_cart.user_id = $1;`, [userId])).rows[0].id
   const games = (await dbClient.query(`SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;`,[cartId])).rows
-  console.log(games)
   res.status(200).json(games)
 
 });
@@ -119,7 +153,6 @@ app.get("/games/:gid", async (req, res) => {
 
 //SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;
   //SELECT shopping_cart_id FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id join shopping_cart on shopping_cart_id = shopping_cart.id;
-  console.log(gamesAdded)
 
   res.status(200).json(gamesAdded)
 
@@ -129,7 +162,6 @@ app.get("/games/:gid", async (req, res) => {
 app.get('/clearCart',async(req,res)=>{
   const userId = req.session.user?.userId;
   const userShoppingCartID = (await dbClient.query(`SELECT id FROM shopping_cart where user_id = $1`,[userId])).rows[0].id
-  console.log(userShoppingCartID)
   await dbClient.query(`DELETE FROM game_shoppingCart_Map WHERE shopping_cart_id =$1`,[userShoppingCartID])
   res.status(200).json({message:"clear success"})
 
