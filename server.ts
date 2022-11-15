@@ -78,6 +78,10 @@ declare module 'express-session' {
 // })
 
 
+//product routes
+import {productRoute} from './routers/productRoute'
+app.use('/product', productRoute)
+
 
 //user routes
 //login
