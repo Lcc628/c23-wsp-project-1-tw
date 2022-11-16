@@ -110,43 +110,44 @@
 
 
 
-          <form class="upform">
+          <form class="upform" id="upform">
             <div class="custom-file">
-              <input type="file" class="custom-file-input" id="customFile">
+              <input type="file" class="custom-file-input" id="customFile" name="customFile">
               <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Product Name</label>
               <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail3" placeholder="Product Name">
+                <input type="text" class="form-control" id="productname" name="productname" placeholder="Product Name" value="product 1">
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Price</label>
               <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail3" placeholder="$999">
+                <input type="text" class="form-control" id="price" name="price" placeholder="$999" value="999">
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Gaming Platform</label>
               <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail3" placeholder="Switch">
+                <input type="text" class="form-control" id="gameplatform" name="gameplatform" placeholder="Switch" value="PS4">
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Games Type</label>
               <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail3" placeholder="RPG">
+                <input type="text" class="form-control" id="gametype" name="gametype" placeholder="RPG" value="RPG">
               </div>
             </div>
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Description</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <textarea class="form-control" id="description" name="description" rows="3" value="testing gnitset"></textarea>
             </div>
             
             <div class="form-group row">
               <div class="col-sm-10">
                 <button type="submit" class="btn btn-primary">Upload</button>
+                <button type="reset" class="btn btn-primary">Reset</button>
               </div>
             </div>
           </form>

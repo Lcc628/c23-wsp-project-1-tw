@@ -97,6 +97,10 @@ app.post('/transactionDetail', async (req, res) => {
 
 
 
+//product routes
+import {productRoute} from './routers/productRoute'
+app.use('/product', productRoute)
+
 
 //user routes
 //login
