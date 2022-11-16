@@ -15,6 +15,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/payment.css">
+  <link rel="stylesheet" href="./css/transaction.css">
 </head>
 <body>
   
@@ -68,7 +69,7 @@
   
   </div>   
 
-      <!-- <article class="pm-games">
+       <article class="pm-games">
         <div class="promo-items">
           <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
           <div class="carousel-indicators">
@@ -134,9 +135,9 @@
               <a href="#"><i class="bi bi-cart3 cart"></i></a>
             </div> -->
 
-  </div>
+  <!-- </div> -->
     
-    <footer class="section-p1">
+    <!-- <footer class="section-p1"> -->
       <!-- <div class="col">
          <h4>Contact</h4>
         <p><strong>電話:</strong> 8888 8888</p>
@@ -181,7 +182,7 @@
     </footer> -->
 
     <!-- login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -210,7 +211,7 @@
     </div>
 
     <!-- register modal -->
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -252,13 +253,13 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --> 
 
 
 
      <!-- Payment -->
      <div class="container">
-      <main>
+      <main id="check_out_from">
         <div class="py-5 text-center">
           <h2>Checkout Form</h2>
         </div>
@@ -269,7 +270,7 @@
           <div class="col-md-5 col-lg-4 order-md-last">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
               <span class="text-primary">Your Cart</span>
-              <span class="badge bg-primary rounded-pill">3</span>
+              <span class="badge bg-primary rounded-pill" id ="numOfGame"></span>
             </h4>
             <ul class="list-group mb-3" id ="cartProductList">
               <!-- <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -311,16 +312,16 @@
                   <label for="username" class="form-label">Username</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text">@</span>
-                    <input type="text" class="form-control" id="username" placeholder="Username" value="" required>
+                    <input type="text" class="form-control" id="username" placeholder="Username" value="" required disabled="true">
                   <div class="invalid-feedback">
                       Your username is required.
                     </div>
                   </div>
                 </div>
-    
+                <a id="changeAddress" class="btn btn-primary" role="button">Change payment details</a>
                 <div class="col-12">
                   <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-                  <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                  <input type="email" class="form-control" id="email" placeholder="you@example.com" disabled="true">
                   <div class="invalid-feedback">
                     Please enter a valid email address for shipping updates.
                   </div>
@@ -328,7 +329,7 @@
     
                 <div class="col-12">
                   <label for="address" class="form-label">Address</label>
-                  <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+                  <input type="text" class="form-control" id="address" placeholder="1234 Main St" required disabled="true">
                   <div class="invalid-feedback">
                     Please enter your shipping address.
                   </div>
@@ -344,15 +345,18 @@
     
               <div class="my-3">
                 <div class="form-check">
-                  <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+                  <input id="credit" name="paymentMethod" type="radio" class="form-check-input" value=
+                  "credit_card" checked required>
                   <label class="form-check-label" for="credit">Credit card</label>
                 </div>
                 <div class="form-check">
-                  <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+                  <input id="debit" name="paymentMethod" type="radio" class="form-check-input" value=
+                  "debit_card" required>
                   <label class="form-check-label" for="debit">Debit card</label>
                 </div>
                 <div class="form-check">
-                  <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+                  <input id="debit" name="paymentMethod" type="radio" class="form-check-input" value=
+                  "sf" required>
                   <label class="form-check-label" for="debit">順豐到付</label>
                 </div>
               </div>
@@ -399,11 +403,82 @@
               <!-- <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button> -->
             </form>
 
-            <a class="btn btn-primary" role="button" id ="transactionBtn" href="./transaction.html">pay now</a>
+            <a class="btn btn-primary" role="button" id ="transactionBtn">pay now</a>
           </div>
         </div>
       </main>
 
+      <table class="body-wrap" id="receipt" style="display: none;">
+        <tbody><tr>
+            <td></td>
+            <td class="container" width="600">
+                <div class="content">
+                    <table class="main" width="100%" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="content-wrap aligncenter">
+                                <table width="100%" cellpadding="0" cellspacing="0">
+                                    <tbody><tr>
+                                        <td class="content-block">
+                                            <h2>Thanks for using our app</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="content-block">
+                                            <table class="invoice">
+                                                <tbody><tr>
+                                                    <td>Anna Smith<br>Invoice #12345<br>June 01 2015</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table class="invoice-items" cellpadding="0" cellspacing="0">
+                                                            <tbody><tr>
+                                                                <td>Service 1</td>
+                                                                <td class="alignright">$ 20.00</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Service 2</td>
+                                                                <td class="alignright">$ 10.00</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Service 3</td>
+                                                                <td class="alignright">$ 6.00</td>
+                                                            </tr>
+                                                            <tr class="total">
+                                                                <td class="alignright" width="80%">Total</td>
+                                                                <td class="alignright">$ 36.00</td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="content-block">
+                                            <a href="#">View in browser</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="content-block">
+                                            Company Inc. 123 Van Ness, San Francisco 94102
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <div class="footer">
+                        <table width="100%">
+                            <tbody><tr>
+                                <td class="aligncenter content-block">Questions? Email <a href="mailto:">support@company.inc</a></td>
+                            </tr>
+                        </tbody></table>
+                    </div></div>
+            </td>
+            <td></td>
+        </tr>
+    </tbody></table>
+  
 
     </div>
 

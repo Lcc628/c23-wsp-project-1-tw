@@ -1,7 +1,9 @@
 window.onload = async () => {
     await inputUserInfoAuto();
     await getCartInfo();
-    // await transactionBtn();
+    await createTransaction();
+    await createChangeAddressButton()
+
 }
 
 inputUserInfoAuto = async () => {
@@ -21,6 +23,7 @@ getCartInfo = async () => {
     let cartProductHTML = ``;
     let totalPrice = 0;
 
+    document.querySelector("#numOfGame").innerText = `${data.length}`
 
     for (let cartProduct of data) {
         totalPrice += parseInt(cartProduct.price);
@@ -39,25 +42,33 @@ getCartInfo = async () => {
     cartProductList.innerHTML = cartProductHTML + totalPriceHTML
 }
 
-// transactionBtn = () => {
-//     // let totalPrice = 0;
-//     // const res = await fetch('/getCartInfo');
-//     // data = await res.json();
-//     // for(let cartProduct of data){
-//     //     totalPrice += parseInt(cartProduct.price);
-//     // }
-//     // console.log("totalPrice: ",totalPrice)
-//     // document.querySelector("#transactionBtn").addEventListener("click",async (e)=>{
-//     //     const res = await fetch('/getCartInfo');
-//     //     data = await res.json();
+createTransaction = async () => {
+    document.querySelector("#transactionBtn").addEventListener("click", async (e) => {
+        const res = await fetch('/transactionDetail', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: JSON.stringify({ 
+                username: document.querySelector("#username").value,
+                email: document.querySelector("#email").value,
+                address: document.querySelector("#address").value,
+                paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
+             }),
+        });
+    data = await res.json();
+    console.log(data)
+    if(res.status == '200'){
+        document.querySelector("#receipt").style.display = 'block'
+        document.querySelector("#check_out_from").style.display = 'none'
+    }
+    })
+}
 
-//     //     window.location = "./transaction.html"
-//     // )
-//     // }
-//     document.querySelector("#transactionBtn").addEventListener("click", async(e) => {
-//         const res = await fetch('/transaction');
-//         data = await res.json();
-//         console.log("games : ",data)
-//         window.location = "./transaction.html"
-//     })
-// }
+createChangeAddressButton = () => {
+    document.querySelector("#changeAddress").addEventListener("click", (e) => {
+        document.querySelector("#address").removeAttribute("disabled")
+        document.querySelector("#email").removeAttribute("disabled")
+    })
+}
+
