@@ -72,7 +72,7 @@ getGames = async() =>{
     const gameListContainerDiv = document.querySelector(".gamelist-container");
 
     for(let game of data){
-        if(game.is_valid){
+        
             const gameLsDiv = document.createElement("div");
             const imgElement = document.createElement("img")
             const desDiv = document.createElement("div");
@@ -83,7 +83,7 @@ getGames = async() =>{
         gameLsDiv.className = "game-ls"
         gameLsDiv.dataset.bsToggle = "modal"
         gameLsDiv.dataset.bsTarget = `#${game.name}`
-        imgElement.src = game.image;
+        imgElement.src = './' + game.image;
         desDiv.className = "des";
         consoleElement.innerText = game.console;
         nameElement.innerText = game.name;
@@ -96,7 +96,7 @@ getGames = async() =>{
         gameLsDiv.appendChild(priceElement);
         
         gameListContainerDiv.appendChild(gameLsDiv)
-        }
+        
     }
     console.log(data)
 }

@@ -185,6 +185,8 @@ app.get("/getCartInfo", async (req, res) => {
 app.get("/games/:gid", async (req, res) => {
   const gameId = parseInt(req.params.gid)
   const userId = req.session.user?.userId;
+  console.log('/games/:gid, >> gameUd, userId', gameId, userId)
+
   const cartId = (await dbClient.query(`SELECT * FROM shopping_cart where shopping_cart.user_id = $1;`, [userId])).rows[0]?.id
 
   await dbClient.query(/*sql*/`INSERT INTO game_shoppingCart_Map (game_id,shopping_cart_id) VALUES ($1,$2);`, [gameId, cartId])

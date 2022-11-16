@@ -6,24 +6,33 @@ window.onload = async () => {
 
 }
 
+
 inputUserInfoAuto = async () => {
     const res = await fetch('/loginUserInfo');
     data = await res.json();
     console.log(data)
+    //payment
     document.querySelector("#username").value = data.username;
     document.querySelector('#email').value = data.email;
     document.querySelector('#address').value = data.address;
+
+    //transaction
+    document.querySelector("#nameOfUser").innerText = data.username;
 }
 
 getCartInfo = async () => {
     const cartProductList = document.querySelector("#cartProductList");
     const res = await fetch('/getCartInfo');
     data = await res.json();
-    console.log(data)
+    console.log("cart data: ",data)
     let cartProductHTML = ``;
     let totalPrice = 0;
 
     document.querySelector("#numOfGame").innerText = `${data.length}`
+
+    //transaction price
+    const itemsPrice = document.querySelector("#itemsNamePrice");
+    let itemsPriceHTML = "";
 
     for (let cartProduct of data) {
         totalPrice += parseInt(cartProduct.price);
@@ -33,13 +42,23 @@ getCartInfo = async () => {
           <small class="text-muted">${cartProduct.game_cate}</small>
         </div>
         <span class="text-muted">$${cartProduct.price}</span>
-      </li>`
+      </li>`;
+
+      //transaction
+      itemsPriceHTML += `<tr>
+      <td >${cartProduct.name}</td>
+      <td class="alignright">$ ${cartProduct.price}</td>
+  </tr>`
     }
     let totalPriceHTML = `<li class="list-group-item d-flex justify-content-between">
     <span>Total (HKD)</span>
     <strong>$${totalPrice.toFixed(2)}</strong>
   </li>`
     cartProductList.innerHTML = cartProductHTML + totalPriceHTML
+
+    //transaction total price html
+    itemsPrice.innerHTML = itemsPriceHTML + totalPriceHTML;
+
 }
 
 createTransaction = async () => {
@@ -57,10 +76,13 @@ createTransaction = async () => {
              }),
         });
     data = await res.json();
-    console.log(data)
+    console.log("transaction: ",data)
     if(res.status == '200'){
+        // document.querySelector("#nameOfUser").innerText = data.
+
         document.querySelector("#receipt").style.display = 'block'
         document.querySelector("#check_out_from").style.display = 'none'
+
     }
     })
 }
@@ -71,4 +93,5 @@ createChangeAddressButton = () => {
         document.querySelector("#email").removeAttribute("disabled")
     })
 }
+
 
