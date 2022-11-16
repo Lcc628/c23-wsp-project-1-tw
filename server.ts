@@ -9,6 +9,8 @@ import formidable from "formidable";
 
 // import path from "path";
 
+//////////////////////////// setup ////////////////////////////
+
 const app = express();
 dotenv.config();
 app.use(express.urlencoded({ extended: true }));
@@ -40,6 +42,17 @@ declare module 'express-session' {
     }
   }
 }
+
+//////////////////////////// routes ////////////////////////////
+
+
+
+//product routes
+import {productRoute} from './routers/productRoute'
+app.use('/product', productRoute)
+
+
+
 
 
 //transaction route
@@ -97,9 +110,6 @@ app.post('/transactionDetail', async (req, res) => {
 
 
 
-//product routes
-import {productRoute} from './routers/productRoute'
-app.use('/product', productRoute)
 
 
 //user routes
@@ -108,9 +118,17 @@ app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const user = (await dbClient.query(`SELECT * FROM users where users.username=$1`, [username])).rows[0]
 
+  //admin login test
   if (user?.password == password) {
+    if(user.is_admin){
+      req.session.user = { username: username, userId: user.id }
+      res.status(201).json({message:"admin logged in"})
+      console.log("admin login")
+      return
+    }
     req.session.user = { username: username, userId: user.id }
     res.status(200).json({ message: 'login success', username })
+    console.log("user login")
   } else {
     res.status(500).json({ message: 'login failed' })
     return
@@ -228,6 +246,9 @@ app.get('/xboxGames', async (req, res) => {
   res.json(games)
 })
 
+
+//////////////////////////// statics ////////////////////////////
+
 app.use(express.static("public"))
 app.use(express.static("uploads"));
 app.use(userLoggedInMiddleWare, express.static("private"))
@@ -235,6 +256,9 @@ app.use(userLoggedInMiddleWare, express.static("private"))
 app.use('/', (req, res) => {
   res.redirect('/404.html')
 })
+
+
+//////////////////////////// listening port ////////////////////////////
 
 const PORT = 8080
 

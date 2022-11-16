@@ -6,8 +6,8 @@ window.onload = () => {
 
 }
 
-register = () =>{
-    document.querySelector("#registerForm").addEventListener("submit", async(e)=>{
+register = () => {
+    document.querySelector("#registerForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         const form = e.target;
         const username = form.username.value;
@@ -23,14 +23,14 @@ register = () =>{
         formData.append('address', address)
         formData.append('phoneNum', phoneNum)
         formData.append('icon', form.icon.files[0])
-        const res = await fetch("/register",{
-            method:"POST",
+        const res = await fetch("/register", {
+            method: "POST",
             body: formData
         })
         const data = await res.json()
-        if(res.status == 200){
+        if (res.status == 200) {
             alert(data.message)
-        }else{
+        } else {
             alert(data.message)
         }
     })
@@ -50,12 +50,24 @@ login = () => {
             },
             body: JSON.stringify({ username, password }),
         })
-        if (res.status == '200') {
-            const {message} = await res.json()
+        console.log(res)
+
+
+        //admin login test
+        if (res.status == '201') {
+            const { message } = await res.json()
+            console.log(message);
+            window.location = "./admin.html"
+        }
+
+
+        else if (res.status == '200') {
+            const { message } = await res.json()
             console.log(message)
             window.location = "./user.html"
-        }else{
-            const {message} = await res.json();
+        }
+        else {
+            const { message } = await res.json();
             alert(message)
         }
 
@@ -63,38 +75,38 @@ login = () => {
 
 }
 
-getGames = async() =>{
+getGames = async () => {
     const res = await fetch('/games');
     data = await res.json();
 
     const gameListContainerDiv = document.querySelector(".gamelist-container");
 
-    for(let game of data){
-        if(game.is_valid){
-            const gameLsDiv = document.createElement("div");
+    for (let game of data) {
+
+        const gameLsDiv = document.createElement("div");
         const imgElement = document.createElement("img")
         const desDiv = document.createElement("div");
         const consoleElement = document.createElement("span")
         const nameElement = document.createElement("h5")
         const priceElement = document.createElement("h5")
-    
+
         gameLsDiv.className = "game-ls"
         gameLsDiv.dataset.bsToggle = "modal"
         gameLsDiv.dataset.bsTarget = `#${game.name}`
-        imgElement.src = game.image;
+        imgElement.src = './' + game.image;
         desDiv.className = "des";
         consoleElement.innerText = game.console;
         nameElement.innerText = game.name;
         priceElement.innerText = `$${game.price}`;
-        
+
         desDiv.appendChild(consoleElement);
         desDiv.appendChild(nameElement);
         gameLsDiv.appendChild(imgElement);
         gameLsDiv.appendChild(desDiv);
         gameLsDiv.appendChild(priceElement);
-        
+
         gameListContainerDiv.appendChild(gameLsDiv)
-        }
+
     }
     console.log(data)
 }
@@ -112,14 +124,14 @@ getGames = async() =>{
 
 
 
-genGameModal = async() =>{
+genGameModal = async () => {
     const res = await fetch('/games');
     data = await res.json();
 
     const gameListContainerDiv = document.querySelector(".gamelist-container");
 
-    for(let game of data){
-        if(game.is_valid){
+    for (let game of data) {
+        if (game.is_valid) {
             const modalFadeDiv = document.createElement("div")
             const modalDialogDiv = document.createElement("div")
             const modalContentDiv = document.createElement("div")
@@ -144,7 +156,7 @@ genGameModal = async() =>{
             consoleSpan.innerText = (game.console)
             cateSpan.innerText = (game.game_cate)
             desSpan.innerText = (game.description)
-            
+
             infoRowDiv.className = "row"
             infoRowDiv.appendChild(nameSpan)
             infoRowDiv.appendChild(priceSpan)

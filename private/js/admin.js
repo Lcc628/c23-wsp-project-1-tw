@@ -228,28 +228,56 @@ const uploadForm = async () => {
   const form = document.querySelector("#upform");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const productInfo = {
-      customFile: e.target.productname.value,
-      productname: e.target.productname.value,
-      price: e.target.price.value,
-      gameplatform: e.target.gameplatform.value,
-      gametype: e.target.gametype.value,
-      description: e.target.description.value,
-    };
-    console.log(productInfo);
+    const formData = new FormData()
+    formData.append('customFile', form.customFile.files[0])
+    formData.append('productname', form.productname.value)
+    formData.append('price', form.price.value)
+    formData.append('gameplatform', form.gameplatform.value)
+    formData.append('gametype', form.gametype.value)
+    formData.append('description', form.description.value)
     const resp = await fetch("/product", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productInfo),
+      body: formData,
     });
-    if (resp.status === 200){
+    if (resp.status === 200) {
       const respJson = await resp.json()
-      console.log('server response: ', respJson )
+      console.log('server response: ', respJson)
     }
-    if (resp.status === 400){
+    if (resp.status === 400) {
       alert('invalid product input')
     }
   });
 };
+
+/////////////////////////////////////////////////////////////////////////////
+// old version (without formidable)
+// const uploadForm = async () => {
+//   const form = document.querySelector("#upform");
+//   form.addEventListener("submit", async (e) => {
+//     e.preventDefault();
+//     const productInfo = {
+//       customFile: e.target.customFile.value,
+//       productname: e.target.productname.value,
+//       price: e.target.price.value,
+//       gameplatform: e.target.gameplatform.value,
+//       gametype: e.target.gametype.value,
+//       description: e.target.description.value,
+//     };
+//     console.log(productInfo);
+//     const resp = await fetch("/product", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(productInfo),
+//     });
+//     if (resp.status === 200){
+//       const respJson = await resp.json()
+//       console.log('server response: ', respJson )
+//     }
+//     if (resp.status === 400){
+//       alert('invalid product input')
+//     }
+//   });
+// };
+/////////////////////////////////////////////////////////////////////////////
