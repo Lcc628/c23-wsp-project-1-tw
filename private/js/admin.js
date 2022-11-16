@@ -229,6 +229,7 @@ const uploadForm = async () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const productInfo = {
+      customFile: e.target.productname.value,
       productname: e.target.productname.value,
       price: e.target.price.value,
       gameplatform: e.target.gameplatform.value,
