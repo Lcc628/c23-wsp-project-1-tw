@@ -98,7 +98,11 @@ FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 
 
+<<<<<<< HEAD
+INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ('admin','881229','123@gmail.com','test.jpg','hk','123456','true'),('user','123123','123123@gmail.com','test.jpg','hk','123456','false');
+=======
 INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ('admin','881229','123@gmail.com','621c65b983f19.jpeg','hk','123456','true');
+>>>>>>> a6c35b1a9dd14b705608d52936faf7b490204c73
 
 INSERT INTO shopping_cart (user_id) VALUES ('1');
 
