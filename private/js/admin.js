@@ -62,6 +62,82 @@ getUserInfo = async () => {
 //       }
 //   }
 // }
+getGames = async() =>{
+  const res = await fetch('/games');
+  data = await res.json();
+
+  const gameListContainerDiv = document.querySelector(".gamelist-container");
+
+  for (let game of data) {
+
+      const gameLsDiv = document.createElement("div");
+      const imgElement = document.createElement("img")
+      const desDiv = document.createElement("div");
+      const consoleElement = document.createElement("span")
+      const nameElement = document.createElement("h5")
+      const priceElement = document.createElement("h5")
+
+      gameLsDiv.className = "game-ls"
+      gameLsDiv.dataset.bsToggle = "modal"
+
+      gameLsDiv.dataset.bsTarget = `#game${game.id}`
+
+      imgElement.src = './' + game.image;
+      desDiv.className = "des";
+      consoleElement.innerText = game.console;
+      nameElement.innerText = game.name;
+      priceElement.innerText = `$${game.price}`;
+
+      desDiv.appendChild(consoleElement);
+      desDiv.appendChild(nameElement);
+      gameLsDiv.appendChild(imgElement);
+      gameLsDiv.appendChild(desDiv);
+      gameLsDiv.appendChild(priceElement);
+
+      gameListContainerDiv.appendChild(gameLsDiv)
+
+  }
+  console.log(data)
+      
+}
+
+
+genGameModal = async() =>{
+  const res = await fetch('/games');
+  data = await res.json();
+  let gameListContainerInnerHTML = "";
+
+  const gameListContainerDiv = document.querySelector(".gamelist-container");
+
+  for(let game of data){
+      gameListContainerInnerHTML += `
+      <div class="modal fade" id="game${game.id}" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <img class="col-md-6" src="./${game.image}">
+              <div class="col-md-6">
+                <div class="row">
+                  <span>${game.name}</span>
+                  <span>${game.price}</span>
+                  <span>${game.console}</span>
+                  <span>${game.description}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+              <button class='btn add-to-cart-button' data-id=${game.id}>ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
 /* <div class="game-ls">
             <img src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg">
@@ -160,54 +236,54 @@ getUserInfo = async () => {
 //   }
 // }
 
-addToCart = () => {
-  // let totalPrice = 0;
-  const gameCartDiv = document.querySelector("#gameCart");
-  const totalPriceSpan = document.querySelector("#totalPrice");
-  document.querySelectorAll(".modal-xl .btn").forEach((e) => {
-    e.addEventListener("click", async (e) => {
-      console.log("click");
+// addToCart = () => {
+//   // let totalPrice = 0;
+//   const gameCartDiv = document.querySelector("#gameCart");
+//   const totalPriceSpan = document.querySelector("#totalPrice");
+//   document.querySelectorAll(".modal-xl .btn").forEach((e) => {
+//     e.addEventListener("click", async (e) => {
+//       console.log("click");
 
-      gameCartDiv.innerHTML = "";
-      const addBtn = e.target;
-      const id = addBtn.id.split("-")[1];
-      res = await fetch(`/games/${id}`);
-      const data = await res.json();
-      if ((res.status = "200")) {
-        alert("add item success");
-      }
-      console.log(data);
+//       gameCartDiv.innerHTML = "";
+//       const addBtn = e.target;
+//       const id = addBtn.id.split("-")[1];
+//       res = await fetch(`/games/${id}`);
+//       const data = await res.json();
+//       if ((res.status = "200")) {
+//         alert("add item success");
+//       }
+//       console.log(data);
 
-      for (let game of data) {
-        const nameSpan = document.createElement("span");
-        const priceSpan = document.createElement("span");
-        nameSpan.innerText = `name: ${game.name}`;
-        priceSpan.innerText = `price: ${game.price}`;
+//       for (let game of data) {
+//         const nameSpan = document.createElement("span");
+//         const priceSpan = document.createElement("span");
+//         nameSpan.innerText = `name: ${game.name}`;
+//         priceSpan.innerText = `price: ${game.price}`;
 
-        const gameInfoDiv = document.createElement("div");
-        gameInfoDiv.className = "row";
-        gameInfoDiv.appendChild(nameSpan);
-        gameInfoDiv.appendChild(priceSpan);
+//         const gameInfoDiv = document.createElement("div");
+//         gameInfoDiv.className = "row";
+//         gameInfoDiv.appendChild(nameSpan);
+//         gameInfoDiv.appendChild(priceSpan);
 
-        const infoColDiv = document.createElement("div");
-        infoColDiv.className = "col-md-4";
-        infoColDiv.appendChild(gameInfoDiv);
+//         const infoColDiv = document.createElement("div");
+//         infoColDiv.className = "col-md-4";
+//         infoColDiv.appendChild(gameInfoDiv);
 
-        const imgDiv = document.createElement("img");
-        imgDiv.className = "col-md-3";
-        imgDiv.src = `${game.image}`;
+//         const imgDiv = document.createElement("img");
+//         imgDiv.className = "col-md-3";
+//         imgDiv.src = `${game.image}`;
 
-        const gamesDivRow = document.createElement("div");
-        gamesDivRow.className = "row";
-        gamesDivRow.appendChild(imgDiv);
-        gamesDivRow.appendChild(infoColDiv);
+//         const gamesDivRow = document.createElement("div");
+//         gamesDivRow.className = "row";
+//         gamesDivRow.appendChild(imgDiv);
+//         gamesDivRow.appendChild(infoColDiv);
 
-        gameCartDiv.appendChild(gamesDivRow);
-        // totalPriceSpan.innerText = `total price: ${totalPrice}`
-      }
-    });
-  });
-};
+//         gameCartDiv.appendChild(gamesDivRow);
+//         // totalPriceSpan.innerText = `total price: ${totalPrice}`
+//       }
+//     });
+//   });
+// };
 
 // clearCart = () =>{
 //   document.querySelector("#clearBtn").addEventListener("click",async (e)=>{
