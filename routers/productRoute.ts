@@ -6,6 +6,36 @@ export const productRoute = express.Router();
 
 productRoute.post("/",uploadMiddleWare, addProduct);
 
+// query data
+// http://localhost:8080/product?delgame=1
+// productRoute.get('/delgame', delGame)
+
+// params data
+// http://localhost:8080/product/delgame/1
+productRoute.get('/delgame/:gameid', delGame)
+
+async function delGame(req: express.Request, res: express.Response){
+  // 拎 query data
+  // const gameId = req.query.gameid
+  
+  // 拎 params data
+  const gameId = req.params.gameid
+
+  // 做野 db sql logic
+  try {
+    const queryResult = (await dbClient.query('UPDATE games SET is_valid = false WHERE id = $1 RETURNING id', [gameId])).rows
+    console.log('queryresult: ', queryResult)
+    // 覆 user
+    res.status(200).json({message: 'ok'})
+    return
+  } catch (e){
+    console.log('[ERROR]: ', e)
+    res.status(500).json({message: 'internal server error'})
+    return
+  }
+  
+}
+
 async function addProduct(req: express.Request, res: express.Response) {
 
   console.log('req.form.fields: ', req.form.fields)

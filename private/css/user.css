@@ -244,3 +244,12 @@ footer .copyright{
     }
 
   }
+
+  .add-to-cart-button{
+    background-color: #3363e6;
+    color: #fff;
+  }
+  .add-to-cart-button:hover{
+    background-color: #244295;
+    color: #fff;
+  }
