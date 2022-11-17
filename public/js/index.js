@@ -56,7 +56,7 @@ login = () => {
         if (res.status == '201') {
             const { message } = await res.json()
             console.log(message);
-            window.location = "./admin.html"
+            window.location = "./admindel.html"
         }
 
         //user
