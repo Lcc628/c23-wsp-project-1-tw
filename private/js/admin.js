@@ -108,7 +108,7 @@ genGameModal = async() =>{
               </div>
             </div>
             <div class="modal-footer">
-                <button class='btn add-to-cart-button' data-id=${game.id}>ADD TO CART</button>
+                <button class='btn deletegame-button' data-id=${game.id}>DELETE</button>
             </div>
           </div>
         </div>

@@ -244,3 +244,13 @@ footer .copyright{
     }
 
   }
+
+  .deletegame-button{
+    background-color: red;
+    color: white;
+  }
+
+  .deletegame-button:hover{
+    background-color: rgb(190, 0, 0);
+    color: white;
+  }
