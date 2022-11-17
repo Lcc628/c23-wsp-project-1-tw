@@ -126,9 +126,11 @@ app.post('/login', async (req, res) => {
       console.log("admin login")
       return
     }
+    //user 
     req.session.user = { username: username, userId: user.id }
     res.status(200).json({ message: 'login success', username })
     console.log("user login")
+    //password error
   } else {
     res.status(500).json({ message: 'login failed' })
     return

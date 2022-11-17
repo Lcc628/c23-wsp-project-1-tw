@@ -59,12 +59,13 @@ login = () => {
             window.location = "./admin.html"
         }
 
-
+        //user
         else if (res.status == '200') {
             const { message } = await res.json()
             console.log(message)
             window.location = "./user.html"
         }
+        // error
         else {
             const { message } = await res.json();
             alert(message)
@@ -81,32 +82,34 @@ getGames = async () => {
     const gameListContainerDiv = document.querySelector(".gamelist-container");
 
     for (let game of data) {
+        if(game.is_valid){
+            const gameLsDiv = document.createElement("div");
+            const imgElement = document.createElement("img")
+            const desDiv = document.createElement("div");
+            const consoleElement = document.createElement("span")
+            const nameElement = document.createElement("h5")
+            const priceElement = document.createElement("h5")
+    
+            gameLsDiv.className = "game-ls"
+            gameLsDiv.dataset.bsToggle = "modal"
+    
+            gameLsDiv.dataset.bsTarget = `#game${game.id}`
+    
+            imgElement.src = './' + game.image;
+            desDiv.className = "des";
+            consoleElement.innerText = game.console;
+            nameElement.innerText = game.name;
+            priceElement.innerText = `$${game.price}`;
+    
+            desDiv.appendChild(consoleElement);
+            desDiv.appendChild(nameElement);
+            gameLsDiv.appendChild(imgElement);
+            gameLsDiv.appendChild(desDiv);
+            gameLsDiv.appendChild(priceElement);
+    
+            gameListContainerDiv.appendChild(gameLsDiv)
+        }
 
-        const gameLsDiv = document.createElement("div");
-        const imgElement = document.createElement("img")
-        const desDiv = document.createElement("div");
-        const consoleElement = document.createElement("span")
-        const nameElement = document.createElement("h5")
-        const priceElement = document.createElement("h5")
-
-        gameLsDiv.className = "game-ls"
-        gameLsDiv.dataset.bsToggle = "modal"
-
-        gameLsDiv.dataset.bsTarget = `#game${game.id}`
-
-        imgElement.src = './' + game.image;
-        desDiv.className = "des";
-        consoleElement.innerText = game.console;
-        nameElement.innerText = game.name;
-        priceElement.innerText = `$${game.price}`;
-
-        desDiv.appendChild(consoleElement);
-        desDiv.appendChild(nameElement);
-        gameLsDiv.appendChild(imgElement);
-        gameLsDiv.appendChild(desDiv);
-        gameLsDiv.appendChild(priceElement);
-
-        gameListContainerDiv.appendChild(gameLsDiv)
 
     }
     console.log(data)

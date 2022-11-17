@@ -29,10 +29,10 @@
       </div>
       <h1 id="userName">Fuck!This is Admin!</h1>
 
-      <button class="Add-items btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#cart">
+      <!-- <button class="Add-items btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#cart">
         <i class="bi bi-cart3 "></i>
           <span>Add Items</span>
-      </button>
+      </button> -->
     </section>
   
     <div class="barLogin">
@@ -64,84 +64,49 @@
   
   </div>   
 
-      <!-- <article class="pm-games">
-        <div class="promo-items">
-          <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          </div>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="https://img.4gamers.com.tw/ckfinder/images/ALIEN/2022-9/4-1.jpg?versionId=vGDYXoTBCx8FcsnBr7NqSioiE5VcdB.s" class="d-block w-100" alt="...">
-              <div class="carousel-caption d-none d-md-block">
-                <h5>可愛粉紅惡魔《星之卡比 Wii 豪華版》升級，明年年初再推出</h5>
-                <p>《星之卡比 Wii 豪華版》預定於 2023 年 2 月 24 日發售。</p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <img src="https://img.4gamers.com.tw/ckfinder/images/ALIEN/2022-10/1008_PokemonSV_thumbnail_TC_FIX_1080p.jpg?versionId=zTWC2RxxfdF0VmbM4Ws8Gr9KNfdbqohO" class="d-block w-100" alt="...">
-              <div class="carousel-caption d-none d-md-block">
-                <h5>《寶可夢 朱／紫》新預告釋出，新增幫寶可夢洗澡以及共同野餐等交流要素</h5>
-                <p>The Pokemon Company 以及遊戲開發商  Game Freak 公開了《寶可夢 朱》《寶可夢 紫》的新影片以及新資訊。繼先前公開的太晶化以及三條主線後，本次公開的是招式學習系統，以及和寶可夢的互動系統。</p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <img src="https://img.4gamers.com.tw/ckfinder/images/ALIEN/2022-8/Fa0j90SaQAAZ1il.jpg?versionId=q1cEV2V2qh6jIuCLjlmK2gU2WMpCqZdC" class="d-block w-100" alt="...">
-              <div class="carousel-caption d-none d-md-block">
-                <h5>卡普空公開《魔物獵人崛起 破曉》資料片銷量突破400萬套</h5>
-                <p>卡普空於本月23日公開，目前已於 Switch、PC 發售的《魔物獵人崛起 破曉》，銷售量突破了 400 萬套，距離上次的 300 萬套發表，僅過了約 40 天，表示目前依然是相當熱賣的遊戲。</p>
-              </div>
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
-      </article> -->
-
-
-
-
           <form class="upform" id="upform">
             <div class="custom-file">
-              <input type="file" class="custom-file-input" id="customFile" name="customFile">
-              <label class="custom-file-label" for="customFile">Choose file</label>
+              <input type="file" class="custom-file-input" id="customFile" name="customFile" required>
+              <!-- <label class="custom-file-label" for="customFile">Choose file</label> -->
             </div>
+
+            <!-- show or not show -->
+            <div class="form-group row">
+              <label for="displayProduct">display????</label>
+              <select class="form-control" id="displayProduct" name="displayProduct" required>
+                <option>display</option>
+                <option>gg</option>
+              </select>
+            </div>
+          
+
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Product Name</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="productname" name="productname" placeholder="Product Name" value="product 1">
+                <input type="text" class="form-control" id="productname" name="productname" placeholder="Product Name" value="product1" required>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Price</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="price" name="price" placeholder="$999" value="999">
+                <input type="text" class="form-control" id="price" name="price" placeholder="$999" value="999" required>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Gaming Platform</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="gameplatform" name="gameplatform" placeholder="Switch" value="PS4">
+                <input type="text" class="form-control" id="gameplatform" name="gameplatform" placeholder="Switch" value="PS4" required>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Games Type</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="gametype" name="gametype" placeholder="RPG" value="RPG">
+                <input type="text" class="form-control" id="gametype" name="gametype" placeholder="RPG" value="RPG" required>
               </div>
             </div>
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Description</label>
-              <textarea class="form-control" id="description" name="description" rows="3" value="testing gnitset"></textarea>
+              <textarea class="form-control" id="description" name="description" rows="3" value="testing gnitset" required></textarea>
             </div>
             
             <div class="form-group row">
@@ -159,95 +124,6 @@
 
   <div class="container">
         
-      <!-- <section id="product1" class="section-g1">
-        <h2>Featured Products</h2>
-        <p>本月最熱遊戲</p> -->
-        <!-- <div class="gamelist-container">
-
-          <div class="game-ls" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              <img src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg" alt="">
-              <div class="des">
-                  <span>Nintendo Switch 遊戲</span>
-                  <h5>NS Pokemon《寶可夢 朱/紫》</h5>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-              </div>
-              <h5>HKD$340.00 ~ 680.00</h5>
-              <a href="#"><i class="bi bi-cart3 cart"></i></a>
-            </div>
-          </div> -->
-    
-  
-    <!-- <footer class="section-p1">
-      <div class="col">
-         <h4>Contact</h4>
-        <p><strong>電話:</strong> 8888 8888</p>
-        <p><strong>郵箱:</strong> cs@gshop.com</p>
-        <p><strong>平日:</strong> 11:00 - 21:00</p>
-        <p><strong>周末:</strong> 12:00 - 21:00</p>
-       </div>
-
-      <div class="col">
-        <h4>送貨服務</h4>
-        <p>送貨上門</p>
-        <p>自提點/智能櫃</p>
-        <p>GoGoX即日送貨</p>
-        <p>門市自取</p>
-      </div>
-
-      <div class="col">
-        <h4>常見問題</h4>
-        <a href="#">門市地址</a>
-        <a href="#">商品保用條款說明</a>
-        <a href="#">聯絡我們</a>
-        <a href="#">商務合作</a>
-      </div>
-
-      <div class="col">
-        <div class="follow">
-          <h4>Follow us</h4>
-          <div class="icon">
-              <i class="fab fa-facebook-f"></i>
-              <i class="fab fa-twitter"></i>
-              <i class="fab fa-instagram"></i>
-              <i class="fab fa-youtube"></i>
-          </div>
-        </div>
-       </div> -->
-
-        <!-- <div class="copyright">
-            <p>© GameShop 版權所有，並保留所有權利</p>
-        </div>
-        
-      </div>
-    </footer> -->
-
- 
-    <!-- Modal -->
-    <!-- <div class="modal fade" id="cart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">shopping-cart</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id ="gameCart"> -->
-            <!-- <div class="row">
-    
-            </div> -->
-          <!-- </div>
-          <div class="modal-footer justify-content-md-end">
-            <span id="totalPrice"></span>
-            <a class="btn btn-primary" role="button" id ="clearBtn">clear</a>
-            <a class="btn btn-primary" href="./payment.html" role="button">Pay</a>
-          </div>
-        </div>
-      </div>
-    </div>
-        -->
    
     
     
