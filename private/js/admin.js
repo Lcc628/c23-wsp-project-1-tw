@@ -2,7 +2,7 @@ window.onload = async () => {
   // await getGames();
   // await genGameModal();
   await getUserInfo();
-  await addToCart();
+  // await addToCart();
   await logout();
   // await clearCart();
   await uploadForm();
@@ -135,7 +135,9 @@ genGameModal = async() =>{
           </div>
         </div>
       </div>
-    </div>
+    </div>`
+  }
+}
 
 
 
@@ -175,7 +177,7 @@ genGameModal = async() =>{
 //           const addToCartBtn = document.createElement("button")
 
 //           //gen addBtn id  delete this line if wrong tmr
-//           addToCartBtn.id = `addBtn-${game.id}`
+//           addToCartBtn.id = 
 
 //           addToCartBtn.innerText = "add to cart"
 //           addToCartBtn.className = "btn btn-primary"
@@ -225,7 +227,7 @@ genGameModal = async() =>{
 //           modalDialogDiv.appendChild(modalContentDiv)
 
 //           modalFadeDiv.className = "modal fade"
-//           modalFadeDiv.id = `${game.name}`
+//           modalFadeDiv.id = 
 //           modalFadeDiv.tabIndex = "-1"
 //           modalFadeDiv.ariaHidden = "true"
 //           modalFadeDiv.appendChild(modalDialogDiv)
@@ -247,7 +249,7 @@ genGameModal = async() =>{
 //       gameCartDiv.innerHTML = "";
 //       const addBtn = e.target;
 //       const id = addBtn.id.split("-")[1];
-//       res = await fetch(`/games/${id}`);
+//       res = await fetch(``);
 //       const data = await res.json();
 //       if ((res.status = "200")) {
 //         alert("add item success");
@@ -257,8 +259,8 @@ genGameModal = async() =>{
 //       for (let game of data) {
 //         const nameSpan = document.createElement("span");
 //         const priceSpan = document.createElement("span");
-//         nameSpan.innerText = `name: ${game.name}`;
-//         priceSpan.innerText = `price: ${game.price}`;
+//         nameSpan.innerText = ``;
+//         priceSpan.innerText = ``;
 
 //         const gameInfoDiv = document.createElement("div");
 //         gameInfoDiv.className = "row";
@@ -271,7 +273,7 @@ genGameModal = async() =>{
 
 //         const imgDiv = document.createElement("img");
 //         imgDiv.className = "col-md-3";
-//         imgDiv.src = `${game.image}`;
+//         imgDiv.src = ``;
 
 //         const gamesDivRow = document.createElement("div");
 //         gamesDivRow.className = "row";
@@ -279,7 +281,7 @@ genGameModal = async() =>{
 //         gamesDivRow.appendChild(infoColDiv);
 
 //         gameCartDiv.appendChild(gamesDivRow);
-//         // totalPriceSpan.innerText = `total price: ${totalPrice}`
+//         // totalPriceSpan.innerText = 
 //       }
 //     });
 //   });
