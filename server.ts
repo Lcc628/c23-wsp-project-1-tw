@@ -258,6 +258,28 @@ app.get("/games/:gid", async (req, res) => {
   res.status(200).json(gamesAdded);
 });
 
+//CartProduct
+//addToCart
+app.get("/cartProduct", async (req, res) => {
+
+  const userId = req.session.user?.userId;
+  const cartId = (
+    await dbClient.query(
+      `SELECT * FROM shopping_cart where shopping_cart.user_id = $1;`,
+      [userId]
+    )
+  ).rows[0]?.id;
+
+  const cartProduct = (
+    await dbClient.query(
+      `SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;`,
+      [cartId]
+    )
+  ).rows;
+
+  res.status(200).json(cartProduct);
+});
+
 //clearCart
 app.get("/clearCart", async (req, res) => {
   const userId = req.session.user?.userId;
@@ -283,7 +305,7 @@ app.get("/clearCart", async (req, res) => {
 
 //homepage show game(image,price,name)
 app.get("/games", async (req, res) => {
-  const games = (await dbClient.query(`SELECT * FROM games;`)).rows;
+  const games = (await dbClient.query(`SELECT * FROM games ORDER BY games.id DESC;`)).rows;
   res.json(games);
 });
 
@@ -327,6 +349,7 @@ app.get("/xboxGames", async (req, res) => {
 
 app.use(express.static("public"));
 app.use(express.static("uploads"));
+app.use(express.static("gameImage"));
 app.use(userLoggedInMiddleWare, express.static("private"));
 
 app.use("/", (req, res) => {

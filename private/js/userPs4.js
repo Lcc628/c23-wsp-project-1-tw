@@ -28,7 +28,7 @@ getUserInfo = async() =>{
 }
 
 getGames = async() =>{
-    const res = await fetch('/games');
+    const res = await fetch('/ps4Games');
     data = await res.json();
 
     const gameListContainerDiv = document.querySelector(".gamelist-container");

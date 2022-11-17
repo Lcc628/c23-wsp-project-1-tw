@@ -29,6 +29,7 @@ register = () => {
         const data = await res.json()
         if (res.status == 200) {
             alert(data.message)
+            window.location = "./"
         } else {
             alert(data.message)
         }
@@ -147,12 +148,12 @@ genGameModal = async () => {
             <div class="modal-body">
               <div class="row">
                 <img class="col-md-6" src="./${game.image}">
-                <div class="col-md-6">
-                  <div class="row">
-                    <span>${game.name}</span>
-                    <span>${game.price}</span>
-                    <span>${game.console}</span>
-                    <span>${game.description}</span>
+                <div class="col-md-6 ">
+                  <div class="row gap-5">
+                    <span class="fs-3">${game.name}</span>
+                    <span class="text-start">售價: ${game.price}</span>
+                    <span class="text-start">遊戲機: ${game.console}</span>
+                    <span class="text-start shadow p-3 mb-5 bg-body rounded">遊戲介紹: ${game.description}</span>
                   </div>
                 </div>
               </div>
@@ -164,8 +165,6 @@ genGameModal = async () => {
       </div>`
       gameListContainerDiv.innerHTML += gameListContainerInnerHTML;
       console.log(gameListContainerDiv.innerHTML)
-  
-
         
     }
     console.log(data)
