@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS games(
     image varchar(255),
     console varchar(255),
     description text,
-    is_valid boolean,
+    is_valid boolean ,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -98,7 +98,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 
 
-INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ('admin','881229','123@gmail.com','test.jpg','hk','123456','true');
+INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ('admin','881229','123@gmail.com','621c65b983f19.jpeg','hk','123456','true');
 
 INSERT INTO shopping_cart (user_id) VALUES ('1');
 

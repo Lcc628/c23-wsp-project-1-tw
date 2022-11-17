@@ -235,6 +235,8 @@ const uploadForm = async () => {
     formData.append('gameplatform', form.gameplatform.value)
     formData.append('gametype', form.gametype.value)
     formData.append('description', form.description.value)
+    formData.append('displayProduct', form.displayProduct.value)
+
     const resp = await fetch("/product", {
       method: "POST",
       body: formData,
@@ -242,6 +244,7 @@ const uploadForm = async () => {
     if (resp.status === 200) {
       const respJson = await resp.json()
       console.log('server response: ', respJson)
+      alert("uploaded")
     }
     if (resp.status === 400) {
       alert('invalid product input')
