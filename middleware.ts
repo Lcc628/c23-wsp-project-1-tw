@@ -52,10 +52,22 @@ export const userLoggedInMiddleWare = (
   res: Response,
   next: NextFunction
 ) => {
-  // for development, delete when real demo
-  // next();
 
   if (req.session.user) {
+    next();
+  } else {
+    res.redirect("/");
+  }
+};
+
+
+export const adminLoggedInMiddleWare = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  
+  if (req.session.user?.isAdmin === true) {
     next();
   } else {
     res.redirect("/");

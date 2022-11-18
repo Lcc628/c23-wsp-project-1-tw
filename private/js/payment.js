@@ -6,9 +6,8 @@ window.onload = async () => {
 
 }
 
-
 inputUserInfoAuto = async () => {
-    const res = await fetch('/loginUserInfo');
+    const res = await fetch('/user/loginUserInfo');
     data = await res.json();
     console.log(data)
     //payment
@@ -22,7 +21,7 @@ inputUserInfoAuto = async () => {
 
 getCartInfo = async () => {
     const cartProductList = document.querySelector("#cartProductList");
-    const res = await fetch('/getCartInfo');
+    const res = await fetch('/product/getCartInfo');
     data = await res.json();
     console.log("cart data: ",data)
     let cartProductHTML = ``;
@@ -63,7 +62,7 @@ getCartInfo = async () => {
 
 createTransaction = async () => {
     document.querySelector("#transactionBtn").addEventListener("click", async (e) => {
-        const res = await fetch('/transactionDetail', {
+        const res = await fetch('/product/transactionDetail', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',

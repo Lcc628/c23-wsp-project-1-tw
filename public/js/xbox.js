@@ -77,7 +77,7 @@ login = () => {
 }
 
 getGames = async () => {
-    const res = await fetch('/xboxGames');
+    const res = await fetch('/product/xboxGames');
     data = await res.json();
 
     const gameListContainerDiv = document.querySelector(".gamelist-container");
@@ -132,7 +132,7 @@ getGames = async () => {
 genGameModal = async () => {
     let gameListContainerInnerHTML = "";
 
-    const res = await fetch('/games');
+    const res = await fetch('/product/games');
     data = await res.json();
 
     const gameListContainerDiv = document.querySelector(".gamelist-container");
@@ -164,7 +164,6 @@ genGameModal = async () => {
         </div>
       </div>`
       gameListContainerDiv.innerHTML += gameListContainerInnerHTML;
-      console.log(gameListContainerDiv.innerHTML)
         
     }
     console.log(data)

@@ -12,7 +12,7 @@ window.onload = async () => {
 logout = async () => {
     document.querySelector('#logOutBtn').addEventListener('click', async (e) => {
         console.log('click')
-        const res = await fetch('/logout');
+        const res = await fetch('/user/logout');
         const data = await res.json()
         console.log(data)
         if (data.status = '200') {
@@ -23,14 +23,14 @@ logout = async () => {
 }
 
 getUserInfo = async () => {
-    const res = await fetch('/loginUserInfo');
+    const res = await fetch('/user/loginUserInfo');
     const data = await res.json();
     const userName = document.querySelector("#userName")
     userName.innerText = `username: ${data.username}`
 }
 
 getGames = async () => {
-    const res = await fetch('/games');
+    const res = await fetch('/product/games');
     const data = await res.json();
 
     const gameListContainerDiv = document.querySelector(".gamelist-container");
@@ -44,7 +44,9 @@ getGames = async () => {
             const nameElement = document.createElement("h5")
             const priceElement = document.createElement("h5")
 
-            gameLsDiv.className = "game-ls"
+            gameLsDiv.classList.add("game-ls")
+            gameLsDiv.setAttribute('draggable', 'true')
+            gameLsDiv.setAttribute('data-id', game.id)
             gameLsDiv.dataset.bsToggle = "modal"
 
             gameLsDiv.dataset.bsTarget = `#game${game.id}`
@@ -63,9 +65,12 @@ getGames = async () => {
 
             gameListContainerDiv.appendChild(gameLsDiv)
         }
-
+        document.querySelectorAll('.game-ls').forEach(elem => elem.addEventListener('drag', e => {
+            e.preventDefault()
+            console.log('dragging: ', e.target)
+        }))
     }
-    console.log("games displayed",data)
+    console.log("games displayed", data)
     // getCart();
 }
 
@@ -83,7 +88,7 @@ getGames = async () => {
 
 
 genGameModal = async () => {
-    const res = await fetch('/games');
+    const res = await fetch('/product/games');
     const data = await res.json();
     let gameListContainerInnerHTML = "";
 
@@ -118,26 +123,26 @@ genGameModal = async () => {
       </div>
       `
         gameListContainerDiv.innerHTML += gameListContainerInnerHTML;
-        
+
     }
     addToCart()
 }
 
 /////////////////////Cart routes////////////////////
 
-getCart = async() => {
+getCart = async () => {
     const gameCartDiv = document.querySelector("#gameCart")
     const cartBtn = document.querySelector(".shopping-cart")
 
-    
+
     // console.log("cartData: ", data)
-    
+
     cartBtn.addEventListener("click", async (e) => {
         console.log("clicked gameCart")
-        
-        const res = await fetch(`/getCartInfo`)
-         const data = await res.json();
-         console.log("newCartData: ", data)
+
+        const res = await fetch(`/product/getCartInfo`)
+        const data = await res.json();
+        console.log("newCartData: ", data)
         gameCartDiv.innerHTML = ""
         for (let game of data) {
             const nameSpan = document.createElement("span")
@@ -181,7 +186,7 @@ addToCart = () => {
             // const id = addBtn.id.split("-")[1];
             const id = addBtn.dataset.id;
             console.log('click: ', id)
-            const res = await fetch(`/games/${id}`)
+            const res = await fetch(`/product/games/${id}`)
             const data = await res.json();
             if (res.status = '200') {
                 alert("add item success")
@@ -192,7 +197,7 @@ addToCart = () => {
 
 clearCart = () => {
     document.querySelector("#clearBtn").addEventListener("click", async (e) => {
-        const res = await fetch('/clearCart');
+        const res = await fetch('/product/clearCart');
 
         const data = await res.json();
         console.log(data)
@@ -205,13 +210,13 @@ clearCart = () => {
 
 }
 
-checkCart = () =>{
-    document.querySelector("#pay-btn").addEventListener("click",async(e)=>{
-        const res = await fetch(`/getCartInfo`)
+checkCart = () => {
+    document.querySelector("#pay-btn").addEventListener("click", async (e) => {
+        const res = await fetch(`/product/getCartInfo`)
         const data = await res.json();
-        if(data.length == 0){
+        if (data.length == 0) {
             alert("no products")
-        }else{
+        } else {
             window.location = "./payment.html"
         }
     })
