@@ -254,3 +254,13 @@ footer .copyright{
     background-color: rgb(190, 0, 0);
     color: white;
   }
+
+  .displayGame-button{
+    background-color: #3363e6;
+    color: white;
+  }
+  .displayGame-button:hover{
+    background-color: #244295;
+    color: white;
+  }
+  
