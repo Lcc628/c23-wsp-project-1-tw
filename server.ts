@@ -179,6 +179,23 @@ app.post("/register", uploadMiddleWare, async (req, res) => {
   const address = info.address;
   const phoneNum = info.phoneNum;
   const icon = (req.form.files["icon"] as formidable.File)?.newFilename;
+
+  //error handling
+  const userNamesEmails = (
+    await dbClient.query(`SELECT username,email FROM users;`)).rows
+    for(let userNameEmail of userNamesEmails){
+      if(name == userNameEmail.username ){
+        res.status(400).json({message:"input another username plz"})
+        return
+      }
+      if(email == userNameEmail){
+        res.status(401).json({message:"input another email plz"})
+        return
+      }
+    }
+    console.log(userNamesEmails);
+
+    //////
   await dbClient.query(
     /*sql*/ `INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ($1,$2,$3,$4,$5,$6,$7);`,
     [name, password, email, icon, address, phoneNum, "false"]
@@ -260,6 +277,8 @@ app.get("/games/:gid", async (req, res) => {
 
 //CartProduct
 //addToCart
+
+
 app.get("/cartProduct", async (req, res) => {
 
   const userId = req.session.user?.userId;

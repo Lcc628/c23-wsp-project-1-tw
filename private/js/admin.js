@@ -23,8 +23,8 @@ logout = async () => {
 getUserInfo = async () => {
   const res = await fetch("/loginUserInfo");
   data = await res.json();
-  const userName = document.querySelector("#userName");
-  userName.innerText = `username: ${data.username}`;
+  // const userName = document.querySelector("#userName");
+  // userName.innerText = `username: ${data.username}`;
 };
 
 getGames = async () => {
@@ -59,6 +59,10 @@ getGames = async () => {
     gameLsDiv.appendChild(priceElement);
 
     gameListContainerDiv.appendChild(gameLsDiv);
+    
+    if(!game.is_valid){
+      gameLsDiv.className = "game-ls opacity-25";
+    }
   }
   console.log(data);
 };
@@ -91,17 +95,18 @@ genGameModal = async () => {
               <div class="row">
                 <img class="col-md-6" src="./${game.image}">
                 <div class="col-md-6">
-                  <div class="row">
-                    <span>${game.name}</span>
-                    <span>${game.price}</span>
-                    <span>${game.console}</span>
-                    <span>${game.description}</span>
+                <div class="row gap-5">
+                <span class="fs-3">${game.name}</span>
+                <span class="text-start">售價: ${game.price}</span>
+                <span class="text-start">遊戲機: ${game.console}</span>
+                <span class="text-start shadow p-3 mb-5 bg-body rounded">遊戲介紹: ${game.description}</span>
                   </div>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
                 <button class='btn deletegame-button' data-id=${game.id}>DELETE</button>
+                <button class='btn displayGame-button' data-id=${game.id}>display</button> 
             </div>
           </div>
         </div>
@@ -188,7 +193,29 @@ genGameModal = async () => {
   }
   addToCart();
   delGame();
+  displayGame();
 };
+
+function displayGame() {
+  const delGameButton = document.querySelectorAll(".displayGame-button");
+  delGameButton.forEach((button) => {
+    button.addEventListener("click", async (e) => {
+      const gameId = e.target.dataset.id;
+
+      // req.params
+      const url = `/product/displayGame/${gameId}`;
+      const respJson = await fetch(url);
+      const resp = await respJson.json();
+      console.log("servers response: ", resp);
+      if (respJson.status === 200) {
+        alert("displayed successfully.");
+        window.location = "./admin.html"
+      } else {
+        alert("Unable to display.");
+      }
+    });
+  });
+}
 
 function delGame() {
   const delGameButton = document.querySelectorAll(".deletegame-button");
@@ -205,12 +232,15 @@ function delGame() {
       console.log("servers response: ", resp);
       if (respJson.status === 200) {
         alert("Deleted successfully.");
+        window.location = "./admin.html"
       } else {
         alert("Unable to delete.");
       }
     });
   });
 }
+
+
 
 addToCart = () => {
   const gameCartDiv = document.querySelector("#gameCart");

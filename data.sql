@@ -98,9 +98,9 @@ FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 
 
-INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ('admin','881229','123@gmail.com','621c65b983f19.jpeg','hk','123456','true'),('abc','123123','123123@gmail.com','621c65b983f19.jpeg','hk','123456','false');
+INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ('admin','881229','123@gmail.com','621c65b983f19.jpeg','hk','123456','true'),('abc','123123','123123@gmail.com','621c65b983f19.jpeg','hk','123456','false'),('chung','881229','1133@gmail.com','621c65b983f19.jpeg','hk','123456','false');
 
-INSERT INTO shopping_cart (user_id) VALUES ('1');
+INSERT INTO shopping_cart (user_id) VALUES ('1'),('2'),('3');
 
 INSERT INTO games (name,price,game_cate,image,console,description,is_valid) VALUES ('《 機動戰士鋼彈 極限 VS. 極限爆發 》','418','動作','game1.jpeg','PS4','「機動戰士鋼彈 極限 VS系列」首款家用主機於 2014 年問世，而本作《機動戰士鋼彈 極限 VS. 極限爆發》是 2016 年開始在街機營運的作品，是一款主打 2V2 團隊戰鬥的大型機台，玩家可以使用各系列知名機體的爆發技能來進行攻防，這次的《機動戰士鋼彈 極限 VS. 極限爆發》從鋼彈 36 款作品中擷取 183 台機體參戰','true'),
 ('NS Pokemon《寶可夢 朱/紫》','340','RPG','game2.jpeg','SWITCH','在《寶可夢 朱／紫》中，玩家將能在豐富呈現的開放世界中自由地冒險。

@@ -14,6 +14,28 @@ productRoute.post("/",uploadMiddleWare, addProduct);
 // http://localhost:8080/product/delgame/1
 productRoute.get('/delgame/:gameid', delGame)
 
+productRoute.get('/displayGame/:gameId',displayGame)
+
+async function displayGame(req: express.Request, res: express.Response){
+  
+  // 拎 params data
+  const gameId = req.params.gameId
+
+  // 做野 db sql logic
+  try {
+    const queryResult = (await dbClient.query('UPDATE games SET is_valid = true WHERE id = $1 RETURNING id', [gameId])).rows
+    console.log('displayedGame: ', queryResult)
+    // 覆 user
+    res.status(200).json({message: 'displayed'})
+    return
+  } catch (e){
+    console.log('[ERROR]: ', e)
+    res.status(500).json({message: 'internal server error'})
+    return
+  }
+  
+}
+
 async function delGame(req: express.Request, res: express.Response){
   // 拎 query data
   // const gameId = req.query.gameid
