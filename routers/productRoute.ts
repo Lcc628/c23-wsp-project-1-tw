@@ -78,6 +78,7 @@ productRoute.get("/clearCart", async (req, res) => {
   );
   res.status(200).json({ message: "clear success" });
 });
+
 //getCartInfo
 
 productRoute.get("/cartProduct", async (req, res) => {
@@ -271,9 +272,6 @@ async function delGame(req: express.Request, res: express.Response) {
 
 async function addProduct(req: express.Request, res: express.Response) {
 
-  console.log('req.form.fields: ', req.form.fields)
-  console.log('req.form: ', req.form)
-
   const productname = req.form.fields.productname;
   const price = Number(req.form.fields.price);
   const gameplatform = req.form.fields.gameplatform;
@@ -283,8 +281,13 @@ async function addProduct(req: express.Request, res: express.Response) {
   //control product display 
   const displayProduct = req.form.fields.displayProduct
 
-  const displayBoolean = displayProduct == 'display' ? true : false
-  console.log(displayBoolean)
+  const displayBoolean = displayProduct == 'Display' ? true : false
+
+  if(isNaN(price)){
+    console.log("price is not number")
+    res.status(400).json({message:"price is not number"})
+    return
+  }
 
   const result = (await dbClient.query(`
   INSERT INTO games 
@@ -293,6 +296,6 @@ async function addProduct(req: express.Request, res: express.Response) {
   RETURNING id, name`,
     [productname, price, gametype, customFile, gameplatform, description, displayBoolean])).rows;
 
-  console.log(result)
+  console.log("uploaded product",result)
   res.status(200).json({ message: "ok" });
 }

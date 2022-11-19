@@ -147,13 +147,13 @@ genGameModal = async () => {
             </div>
             <div class="modal-body">
               <div class="row">
-                <img class="col-md-6" src="./${game.image}">
-                <div class="col-md-6 ">
-                  <div class="row gap-5">
-                    <span class="fs-3">${game.name}</span>
-                    <span class="text-start">售價: ${game.price}</span>
-                    <span class="text-start">遊戲機: ${game.console}</span>
-                    <span class="text-start shadow p-3 mb-5 bg-body rounded">遊戲介紹: ${game.description}</span>
+              <img class="col-md-6" src="./${game.image}">
+              <div class="col-md-5">
+                <div class="row gap-5">
+                <span class="fs-3">${game.name}</span>
+                <span class="text-start shadow p-3 mb-5 bg-body rounded">售價: ${game.price}</span>
+                <span class="text-start shadow p-3 mb-5 bg-body rounded">遊戲機: ${game.console}</span>
+                <span class="text-start shadow p-3 mb-5 bg-body rounded">遊戲介紹: ${game.description}</span>
                   </div>
                 </div>
               </div>
