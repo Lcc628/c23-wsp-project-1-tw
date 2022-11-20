@@ -289,11 +289,18 @@ async function addProduct(req: express.Request, res: express.Response) {
 
   const displayBoolean = displayProduct == 'Display' ? true : false
 
+  if(price>=10000){
+    res.status(401).json({message:"too expensive"})
+    return
+  }
+
   if(isNaN(price)){
     console.log("price is not number")
     res.status(400).json({message:"price is not number"})
     return
   }
+
+  
 
   const result = (await dbClient.query(`
   INSERT INTO games 

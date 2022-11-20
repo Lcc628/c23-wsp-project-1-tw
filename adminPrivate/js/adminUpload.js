@@ -121,5 +121,8 @@ const uploadForm = async () => {
     if (resp.status === 400) {
       alert('price is not number')
     }
+    if (resp.status === 401) {
+      alert('too expensive')
+    }
   });
 };
