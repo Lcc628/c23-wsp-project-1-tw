@@ -146,7 +146,13 @@ productRoute.get("/games/:gid", async (req, res) => {
   res.status(200).json(gamesAdded);
 });
 
+//transaction route
 productRoute.post("/transactionDetail", async (req, res) => {
+
+// testing 
+const userInfo = req.body;
+  console.log("Req.body ",req.body);
+
   const userId = req.session.user?.userId;
 
   const pool = new pg.Pool({
@@ -183,8 +189,8 @@ productRoute.post("/transactionDetail", async (req, res) => {
       );
 
       const transaction = await dbClient.query(
-        `INSERT INTO transaction (user_id, total_amount) VALUES ($1,$2) RETURNING id;`,
-        [userId, totalAmount]
+        `INSERT INTO transaction (user_id, total_amount, address, email) VALUES ($1,$2,$3,$4) RETURNING id;`,
+        [userId, totalAmount, userInfo.address, userInfo.email]
       );
 
       games.map(

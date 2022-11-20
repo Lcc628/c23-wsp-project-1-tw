@@ -15,8 +15,9 @@ inputUserInfoAuto = async () => {
     document.querySelector('#email').value = data.email;
     document.querySelector('#address').value = data.address;
 
-    //transaction
-    document.querySelector("#nameOfUser").innerText = data.username;
+    // transaction
+    document.querySelector("#nameOfUser").innerText = `User Name: ${data.username}`;
+    
 }
 
 getCartInfo = async () => {
@@ -71,17 +72,30 @@ createTransaction = async () => {
                 username: document.querySelector("#username").value,
                 email: document.querySelector("#email").value,
                 address: document.querySelector("#address").value,
-                paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
+                // paymentMethod: document.querySelector('').value,
              }),
         });
     data = await res.json();
-    console.log("transaction: ",data)
+    console.log("transaction: ",data.transactionRecord)
+
+    
+
     if(res.status == '200'){
         // document.querySelector("#nameOfUser").innerText = data.
+        if(data.transactionRecord.length == 0){
+            alert("no products")
+            return
+        }
+
+        const transactionDate = data.transactionRecord[0].created_at.split("T")[0]
+ 
+        document.querySelector("#transactionDate").innerText = `Date: ${transactionDate}`
+        document.querySelector("#newAddress").innerText = `Address: ${data.transactionRecord[0].address}`
+        document.querySelector("#newEmail").innerText = `email: ${data.transactionRecord[0].email}`;
+
 
         document.querySelector("#receipt").style.display = 'block'
         document.querySelector("#check_out_from").style.display = 'none'
-
     }
     })
 }
