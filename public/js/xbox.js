@@ -22,7 +22,7 @@ register = () => {
         formData.append('address', address)
         formData.append('phoneNum', phoneNum)
         formData.append('icon', form.icon.files[0])
-        const res = await fetch("/register", {
+        const res = await fetch("/user/register", {
             method: "POST",
             body: formData
         })
@@ -43,23 +43,21 @@ login = () => {
         const username = form.username.value;
         const password = form.password.value;
         console.log(username, password)
-        const res = await fetch('/login', {
+        const res = await fetch('/user/login', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
             },
             body: JSON.stringify({ username, password }),
         })
-        console.log(res)
-
 
         //admin login test
         if (res.status == '201') {
             const { message } = await res.json()
             console.log(message);
             window.location = "./admin.html"
-        }
 
+        }
         //user
         else if (res.status == '200') {
             const { message } = await res.json()
@@ -71,63 +69,44 @@ login = () => {
             const { message } = await res.json();
             alert(message)
         }
-
     })
-
 }
 
 getGames = async () => {
     const res = await fetch('/product/xboxGames');
     data = await res.json();
-
     const gameListContainerDiv = document.querySelector(".gamelist-container");
 
     for (let game of data) {
-        if(game.is_valid){
+        if (game.is_valid) {
             const gameLsDiv = document.createElement("div");
             const imgElement = document.createElement("img")
             const desDiv = document.createElement("div");
             const consoleElement = document.createElement("span")
             const nameElement = document.createElement("h5")
             const priceElement = document.createElement("h5")
-    
+
             gameLsDiv.className = "game-ls"
             gameLsDiv.dataset.bsToggle = "modal"
-    
+
             gameLsDiv.dataset.bsTarget = `#game${game.id}`
-    
+
             imgElement.src = './' + game.image;
             desDiv.className = "des";
             consoleElement.innerText = game.console;
             nameElement.innerText = game.name;
             priceElement.innerText = `$${game.price}`;
-    
+
             desDiv.appendChild(consoleElement);
             desDiv.appendChild(nameElement);
             gameLsDiv.appendChild(imgElement);
             gameLsDiv.appendChild(desDiv);
             gameLsDiv.appendChild(priceElement);
-    
+
             gameListContainerDiv.appendChild(gameLsDiv)
         }
-
-
     }
-    console.log(data)
 }
-
-
-
-/* <div class="game-ls">
-              <img src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg">
-              <div class="des">
-                  <span>Nintendo Switch 遊戲</span>
-                  <h5>NS Pokemon《寶可夢 朱/紫》</h5>
-              </div>
-              <h5>HKD$340.00 ~ 680.00</h5>
-            </div> */
-
-
 
 genGameModal = async () => {
     let gameListContainerInnerHTML = "";
@@ -136,7 +115,6 @@ genGameModal = async () => {
     data = await res.json();
 
     const gameListContainerDiv = document.querySelector(".gamelist-container");
-
 
     for (let game of data) {
         gameListContainerInnerHTML += `<div class="modal fade" id="game${game.id}" tabindex="-1" aria-hidden="true">
@@ -147,13 +125,13 @@ genGameModal = async () => {
             </div>
             <div class="modal-body">
               <div class="row">
-                <img class="col-md-6" src="./${game.image}">
-                <div class="col-md-6 ">
-                  <div class="row gap-5">
-                    <span class="fs-3">${game.name}</span>
-                    <span class="text-start">售價: ${game.price}</span>
-                    <span class="text-start">遊戲機: ${game.console}</span>
-                    <span class="text-start shadow p-3 mb-5 bg-body rounded">遊戲介紹: ${game.description}</span>
+              <img class="col-md-6" src="./${game.image}">
+              <div class="col-md-5">
+                <div class="row gap-5">
+                <span class="fs-3">${game.name}</span>
+                <span class="text-start shadow p-3 mb-5 bg-body rounded">售價: ${game.price}</span>
+                <span class="text-start shadow p-3 mb-5 bg-body rounded">遊戲機: ${game.console}</span>
+                <span class="text-start shadow p-3 mb-5 bg-body rounded">遊戲介紹: ${game.description}</span>
                   </div>
                 </div>
               </div>
@@ -163,8 +141,7 @@ genGameModal = async () => {
           </div>
         </div>
       </div>`
-      gameListContainerDiv.innerHTML += gameListContainerInnerHTML;
-        
+        gameListContainerDiv.innerHTML += gameListContainerInnerHTML;
     }
     console.log(data)
 }

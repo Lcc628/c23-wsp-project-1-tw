@@ -106,6 +106,7 @@ const uploadForm = async () => {
     formData.append('gameplatform', form.gameplatform.value)
     formData.append('gametype', form.gametype.value)
     formData.append('description', form.description.value)
+
     formData.append('displayProduct', form.displayProduct.value)
 
     const resp = await fetch("/product", {
@@ -118,7 +119,10 @@ const uploadForm = async () => {
       alert("uploaded")
     }
     if (resp.status === 400) {
-      alert('invalid product input')
+      alert('price is not number')
+    }
+    if (resp.status === 401) {
+      alert('too expensive')
     }
   });
 };

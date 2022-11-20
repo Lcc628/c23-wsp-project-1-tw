@@ -74,6 +74,9 @@ CREATE TABLE IF NOT EXISTS transaction(
     user_id int,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     total_amount decimal(6,2),
+    address varchar(255),
+    email varchar(50),
+    paymentMethod varchar(255),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -131,6 +134,18 @@ INSERT INTO games (name,price,game_cate,image,console,description,is_valid) VALU
 本作描述一群誤闖進異世界的少年少女為了回到原本的世界，與在當地相遇的怪獸結伴展開的冒險歷程。
 由文字冒險部分，以及將同行怪獸作為操縱單位，與敵對怪獸交戰的策略戰鬥部份等兩大主軸所構成，是一款文字冒險+策略戰鬥遊戲。','true')
 ;
+
+
+
+
+
+
+
+
+
+
+
+
 -- ,('game3','400','RPG','https://i.openshop.com.hk/upload/202006/5ed5caae2216d.jpg','PS4','hihihihi','true'),
 -- ('game4','500','RPG','https://img.openshop.com.hk/s2/202208/630454b0be157.jpg','SWITCH','hihihihi','true'),('game5','500','RPG','https://img.openshop.com.hk/s2/202208/62ff59c56c3ef.jpg','PC','hihihihi','true'),('game6','500','RPG','https://img.openshop.com.hk/s2/202209/63356bc5b09fb.jpg','XBOX','hihihihi','true');
 

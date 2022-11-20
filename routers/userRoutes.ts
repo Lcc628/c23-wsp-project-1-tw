@@ -21,7 +21,6 @@ userRoute.post("/login", async (req, res) => {
     ).rows[0];
     //admin login test
     if (user?.password === password) {
-      /////// admin login test delete if gg
       if (user.is_admin) {
         req.session.user = { username: user.username, userId: user.id, isAdmin: true };
         res.status(201).json({ message: "admin logged in", username });

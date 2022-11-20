@@ -71,20 +71,8 @@ getGames = async () => {
         }))
     }
     console.log("games displayed", data)
-    // getCart();
+
 }
-
-
-
-/* <div class="game-ls">
-              <img src="https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg">
-              <div class="des">
-                  <span>Nintendo Switch 遊戲</span>
-                  <h5>NS Pokemon《寶可夢 朱/紫》</h5>
-              </div>
-              <h5>HKD$340.00 ~ 680.00</h5>
-            </div> */
-
 
 
 genGameModal = async () => {
@@ -134,9 +122,6 @@ getCart = async () => {
     const gameCartDiv = document.querySelector("#gameCart")
     const cartBtn = document.querySelector(".shopping-cart")
 
-
-    // console.log("cartData: ", data)
-
     cartBtn.addEventListener("click", async (e) => {
         console.log("clicked gameCart")
 
@@ -171,19 +156,14 @@ getCart = async () => {
             gameCartDiv.appendChild(gamesDivRow)
 
         }
-
     })
-
 }
 
 addToCart = () => {
-    // const gameCartDiv = document.querySelector("#gameCart")
-
     document.querySelectorAll(".add-to-cart-button").forEach(e => {
         e.addEventListener("click", async (e) => {
-            // gameCartDiv.innerHTML = ""
+
             const addBtn = e.target;
-            // const id = addBtn.id.split("-")[1];
             const id = addBtn.dataset.id;
             console.log('click: ', id)
             const res = await fetch(`/product/games/${id}`)

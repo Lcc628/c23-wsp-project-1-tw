@@ -78,6 +78,7 @@ productRoute.get("/clearCart", async (req, res) => {
   );
   res.status(200).json({ message: "clear success" });
 });
+
 //getCartInfo
 
 productRoute.get("/cartProduct", async (req, res) => {
@@ -145,7 +146,13 @@ productRoute.get("/games/:gid", async (req, res) => {
   res.status(200).json(gamesAdded);
 });
 
+//transaction route
 productRoute.post("/transactionDetail", async (req, res) => {
+
+// testing 
+const userInfo = req.body;
+  console.log("Req.body ",req.body);
+
   const userId = req.session.user?.userId;
 
   const pool = new pg.Pool({
@@ -182,8 +189,8 @@ productRoute.post("/transactionDetail", async (req, res) => {
       );
 
       const transaction = await dbClient.query(
-        `INSERT INTO transaction (user_id, total_amount) VALUES ($1,$2) RETURNING id;`,
-        [userId, totalAmount]
+        `INSERT INTO transaction (user_id, total_amount, address, email) VALUES ($1,$2,$3,$4) RETURNING id;`,
+        [userId, totalAmount, userInfo.address, userInfo.email]
       );
 
       games.map(
@@ -271,9 +278,6 @@ async function delGame(req: express.Request, res: express.Response) {
 
 async function addProduct(req: express.Request, res: express.Response) {
 
-  console.log('req.form.fields: ', req.form.fields)
-  console.log('req.form: ', req.form)
-
   const productname = req.form.fields.productname;
   const price = Number(req.form.fields.price);
   const gameplatform = req.form.fields.gameplatform;
@@ -283,8 +287,20 @@ async function addProduct(req: express.Request, res: express.Response) {
   //control product display 
   const displayProduct = req.form.fields.displayProduct
 
-  const displayBoolean = displayProduct == 'display' ? true : false
-  console.log(displayBoolean)
+  const displayBoolean = displayProduct == 'Display' ? true : false
+
+  if(price>=10000){
+    res.status(401).json({message:"too expensive"})
+    return
+  }
+
+  if(isNaN(price)){
+    console.log("price is not number")
+    res.status(400).json({message:"price is not number"})
+    return
+  }
+
+  
 
   const result = (await dbClient.query(`
   INSERT INTO games 
@@ -293,6 +309,6 @@ async function addProduct(req: express.Request, res: express.Response) {
   RETURNING id, name`,
     [productname, price, gametype, customFile, gameplatform, description, displayBoolean])).rows;
 
-  console.log(result)
+  console.log("uploaded product",result)
   res.status(200).json({ message: "ok" });
 }
