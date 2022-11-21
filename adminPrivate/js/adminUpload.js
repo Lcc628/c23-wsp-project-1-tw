@@ -108,6 +108,8 @@ const uploadForm = async () => {
     formData.append('description', form.description.value)
 
     formData.append('displayProduct', form.displayProduct.value)
+    
+console.log(formData)
 
     const resp = await fetch("/product", {
       method: "POST",
