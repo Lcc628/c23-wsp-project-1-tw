@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users,games,shopping_cart,game_shoppingCart_Map,transaction,transaction_detail;
+DROP TABLE IF EXISTS users, games, shopping_cart, game_shoppingCart_Map, transaction, transaction_detail;
 
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$
@@ -100,8 +100,13 @@ EXECUTE PROCEDURE trigger_set_timestamp();
 
 INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ('admin','881229','123@gmail.com','test.jpg','hk','123456','true');
 
-INSERT INTO games (name,price,game_cate,image,console,description,is_valid) VALUES ('game1','100','RPG','https://i.openshop.com.hk/upload/202003/5e81885bb7ad9.jpg','PS4','hihihihi','true'),('game2','200','RPG','https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg','SWITCH','byebyebye','true'),('game3','400','RPG','https://i.openshop.com.hk/upload/202006/5ed5caae2216d.jpg','PS4','hihihihi','true'),
-('game4','500','RPG','https://img.openshop.com.hk/s2/202208/630454b0be157.jpg','SWITCH','hihihihi','true'),('game5','500','RPG','https://img.openshop.com.hk/s2/202208/62ff59c56c3ef.jpg','PC','hihihihi','true'),('game6','500','RPG','https://img.openshop.com.hk/s2/202209/63356bc5b09fb.jpg','XBOX','hihihihi','true');
+INSERT INTO games (name,price,game_cate,image,console,description,is_valid) VALUES 
+('game1','100','RPG','https://i.openshop.com.hk/upload/202003/5e81885bb7ad9.jpg','PS4','hihihihi','true'),
+('game2','200','RPG','https://i.openshop.com.hk/upload/202202/621c65b983f19.jpg','SWITCH','byebyebye','true'),
+('game3','400','RPG','https://i.openshop.com.hk/upload/202006/5ed5caae2216d.jpg','PS4','hihihihi','true'),
+('game4','500','RPG','https://img.openshop.com.hk/s2/202208/630454b0be157.jpg','SWITCH','hihihihi','true'),
+('game5','500','RPG','https://img.openshop.com.hk/s2/202208/62ff59c56c3ef.jpg','PC','hihihihi','true'),
+('game6','500','RPG','https://img.openshop.com.hk/s2/202209/63356bc5b09fb.jpg','XBOX','hihihihi','true');
 
 INSERT INTO shopping_cart (user_id) VALUES ('1');
 
