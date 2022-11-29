@@ -7,7 +7,7 @@
 #userName{
     color: white;
 }
-
+  
 .top{
     background-color: rgb(56, 56, 56);
     z-index: 999;
@@ -50,7 +50,7 @@
     border-radius: 5px;
   
   }
-  
+
   
   .shopping-cart i{
       padding-right: 6px;
@@ -244,3 +244,13 @@ footer .copyright{
     }
 
   }
+
+  .add-to-cart-button{
+    background-color: #3363e6;
+    color: #fff;
+  }
+ /* .add-to-cart-button{
+    background-color: #244295;
+    color: #fff;
+  }  */
+
