@@ -21,137 +21,38 @@ productRoute.get('/delgame/:gameid', delGame)
 productRoute.get('/displayGame/:gameId', displayGame)
 
 //getGames
-productRoute.get("/games", async (req, res) => {
-  const games = (await dbClient.query(`SELECT * FROM games ORDER BY games.id DESC;`)).rows;
-  res.json(games);
-});
+productRoute.get("/games", getGames);
 
-productRoute.get("/ps4Games", async (req, res) => {
-  const games = (
-    await dbClient.query(`SELECT * FROM games where games.console = $1;`, [
-      "PS4",
-    ])
-  ).rows;
-  res.json(games);
-});
+productRoute.get("/ps4Games", getPs4Games);
 
-productRoute.get("/switchGames", async (req, res) => {
-  const games = (
-    await dbClient.query(`SELECT * FROM games where games.console = $1;`, [
-      "SWITCH",
-    ])
-  ).rows;
-  res.json(games);
-});
+productRoute.get("/switchGames", getSwitchGames);
 
-productRoute.get("/pcGames", async (req, res) => {
-  const games = (
-    await dbClient.query(`SELECT * FROM games where games.console = $1;`, [
-      "PC",
-    ])
-  ).rows;
-  res.json(games);
-});
+productRoute.get("/pcGames", getPcGames);
 
-productRoute.get("/xboxGames", async (req, res) => {
-  const games = (
-    await dbClient.query(`SELECT * FROM games where games.console = $1;`, [
-      "XBOX",
-    ])
-  ).rows;
-  res.json(games);
-});
+productRoute.get("/xboxGames", getXboxGames);
 
 //product cart route
 
 //clearCart
-productRoute.get("/clearCart", async (req, res) => {
-  const userId = req.session.user?.userId;
-  const userShoppingCartID = (
-    await dbClient.query(`SELECT id FROM shopping_cart where user_id = $1`, [
-      userId,
-    ])
-  ).rows[0]?.id;
-  await dbClient.query(
-    `DELETE FROM game_shoppingCart_Map WHERE shopping_cart_id =$1`,
-    [userShoppingCartID]
-  );
-  res.status(200).json({ message: "clear success" });
-});
+productRoute.get("/clearCart",clearCart);
 
 //getCartInfo
 
-productRoute.get("/cartProduct", async (req, res) => {
+productRoute.get("/cartProduct", getCartProduct);
 
-  const userId = req.session.user?.userId;
-  const cartId = (
-    await dbClient.query(
-      `SELECT * FROM shopping_cart where shopping_cart.user_id = $1;`,
-      [userId]
-    )
-  ).rows[0]?.id;
-
-  const cartProduct = (
-    await dbClient.query(
-      `SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;`,
-      [cartId]
-    )
-  ).rows;
-
-  res.status(200).json(cartProduct);
-});
-
-productRoute.get("/getCartInfo", async (req, res) => {
-  const userId = req.session.user?.userId;
-  const cartId = (
-    await dbClient.query(
-      `SELECT * FROM shopping_cart where shopping_cart.user_id = $1;`,
-      [userId]
-    )
-  ).rows[0].id;
-  const games = (
-    await dbClient.query(
-      `SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;`,
-      [cartId]
-    )
-  ).rows;
-  res.status(200).json(games);
-});
+productRoute.get("/getCartInfo", getCartInfo);
 
 //addToCart
-productRoute.get("/games/:gid", async (req, res) => {
-  const gameId = parseInt(req.params.gid);
-  const userId = req.session.user?.userId;
-  console.log("/games/:gid, >> gameUd, userId", gameId, userId);
-
-  const cartId = (
-    await dbClient.query(
-      `SELECT * FROM shopping_cart where shopping_cart.user_id = $1;`,
-      [userId]
-    )
-  ).rows[0]?.id;
-
-  await dbClient.query(
-    /*sql*/ `INSERT INTO game_shoppingCart_Map (game_id,shopping_cart_id) VALUES ($1,$2);`,
-    [gameId, cartId]
-  );
-
-  const gamesAdded = (
-    await dbClient.query(
-      `SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;`,
-      [cartId]
-    )
-  ).rows;
-
-  res.status(200).json(gamesAdded);
-});
+productRoute.get("/games/:gid", addToCart);
 
 //transaction route
-productRoute.post("/transactionDetail", async (req, res) => {
+productRoute.post("/transactionDetail", getTransactionDetail);
 
-// testing 
-const userInfo = req.body;
-  console.log("Req.body ",req.body);
+async function getTransactionDetail(req:express.Request, res:express.Response){
+
+  // testing 
+  const userInfo = req.body;
+  console.log("Req.body ", req.body);
 
   const userId = req.session.user?.userId;
 
@@ -231,7 +132,126 @@ const userInfo = req.body;
       client.release();
     }
   })().catch((e) => console.error(e.stack));
-});
+}
+
+async function addToCart(req: express.Request, res: express.Response) {
+  const gameId = parseInt(req.params.gid);
+  const userId = req.session.user?.userId;
+  console.log("/games/:gid, >> gameUd, userId", gameId, userId);
+
+  const cartId = (
+    await dbClient.query(
+      `SELECT * FROM shopping_cart where shopping_cart.user_id = $1;`,
+      [userId]
+    )
+  ).rows[0]?.id;
+
+  await dbClient.query(
+    /*sql*/ `INSERT INTO game_shoppingCart_Map (game_id,shopping_cart_id) VALUES ($1,$2);`,
+    [gameId, cartId]
+  );
+
+  const gamesAdded = (
+    await dbClient.query(
+      `SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;`,
+      [cartId]
+    )
+  ).rows;
+
+  res.status(200).json(gamesAdded);
+}
+
+async function getCartInfo(req: express.Request, res: express.Response){
+  const userId = req.session.user?.userId;
+  const cartId = (
+    await dbClient.query(
+      `SELECT * FROM shopping_cart where shopping_cart.user_id = $1;`,
+      [userId]
+    )
+  ).rows[0].id;
+  const games = (
+    await dbClient.query(
+      `SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;`,
+      [cartId]
+    )
+  ).rows;
+  res.status(200).json(games);
+}
+
+async function getCartProduct(req: express.Request, res: express.Response) {
+
+  const userId = req.session.user?.userId;
+  const cartId = (
+    await dbClient.query(
+      `SELECT * FROM shopping_cart where shopping_cart.user_id = $1;`,
+      [userId]
+    )
+  ).rows[0]?.id;
+
+  const cartProduct = (
+    await dbClient.query(
+      `SELECT * FROM games join game_shoppingCart_Map on games.id = game_shoppingCart_Map.game_id where shopping_cart_id = $1;`,
+      [cartId]
+    )
+  ).rows;
+
+  res.status(200).json(cartProduct);
+}
+
+async function clearCart(req: express.Request, res: express.Response) {
+  const userId = req.session.user?.userId;
+  const userShoppingCartID = (
+    await dbClient.query(`SELECT id FROM shopping_cart where user_id = $1`, [
+      userId,
+    ])
+  ).rows[0]?.id;
+  await dbClient.query(
+    `DELETE FROM game_shoppingCart_Map WHERE shopping_cart_id =$1`,
+    [userShoppingCartID]
+  );
+  res.status(200).json({ message: "clear success" });
+}
+
+async function getXboxGames(req: express.Request, res: express.Response) {
+  const games = (
+    await dbClient.query(`SELECT * FROM games where games.console = $1;`, [
+      "XBOX",
+    ])
+  ).rows;
+  res.json(games);
+}
+
+async function getPcGames(req: express.Request, res: express.Response) {
+  const games = (
+    await dbClient.query(`SELECT * FROM games where games.console = $1;`, [
+      "PC",
+    ])
+  ).rows;
+  res.json(games);
+}
+
+async function getSwitchGames(req: express.Request, res: express.Response){
+  const games = (
+    await dbClient.query(`SELECT * FROM games where games.console = $1;`, [
+      "SWITCH",
+    ])
+  ).rows;
+  res.json(games);
+}
+
+async function getPs4Games(req: express.Request, res: express.Response) {
+  const games = (
+    await dbClient.query(`SELECT * FROM games where games.console = $1;`, [
+      "PS4",
+    ])
+  ).rows;
+  res.json(games);
+}
+
+async function getGames(req: express.Request, res: express.Response) {
+  const games = (await dbClient.query(`SELECT * FROM games ORDER BY games.id DESC;`)).rows;
+  res.json(games);
+}
 
 
 async function displayGame(req: express.Request, res: express.Response) {
@@ -255,13 +275,9 @@ async function displayGame(req: express.Request, res: express.Response) {
 }
 
 async function delGame(req: express.Request, res: express.Response) {
-  // 拎 query data
-  // const gameId = req.query.gameid
 
-  // 拎 params data
   const gameId = req.params.gameid
 
-  // 做野 db sql logic
   try {
     const queryResult = (await dbClient.query('UPDATE games SET is_valid = false WHERE id = $1 RETURNING id', [gameId])).rows
     console.log('queryresult: ', queryResult)
@@ -289,18 +305,18 @@ async function addProduct(req: express.Request, res: express.Response) {
 
   const displayBoolean = displayProduct == 'Display' ? true : false
 
-  if(price>=10000){
-    res.status(401).json({message:"too expensive"})
+  if (price >= 10000) {
+    res.status(401).json({ message: "too expensive" })
     return
   }
 
-  if(isNaN(price)){
+  if (isNaN(price)) {
     console.log("price is not number")
-    res.status(400).json({message:"price is not number"})
+    res.status(400).json({ message: "price is not number" })
     return
   }
 
-  
+
 
   const result = (await dbClient.query(`
   INSERT INTO games 
@@ -309,6 +325,6 @@ async function addProduct(req: express.Request, res: express.Response) {
   RETURNING id, name`,
     [productname, price, gametype, customFile, gameplatform, description, displayBoolean])).rows;
 
-  console.log("uploaded product",result)
+  console.log("uploaded product", result)
   res.status(200).json({ message: "ok" });
 }

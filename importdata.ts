@@ -1,6 +1,7 @@
 import pg from "pg";
 import dotenv from "dotenv";
-// import { hashPassword } from "./hash";
+import { hashPassword } from "./hash";
+
 dotenv.config();
 
 async function main() {
@@ -14,7 +15,14 @@ async function main() {
   console.log("db connected !!!");
 
   
-await client.query(/*sql*/`INSERT INTO users (username,password,email,icon,address,phone_number,is_admin,created_at,updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9);`,['chung','881229','hi@gmail.com','test.jpg','hk','123456','false'])
+await client.query(/*sql*/`INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ($1,$2,$3,$4,$5,$6,$7);`,['admin',await hashPassword('881229'),'hi@gmail.com','test.jpg','hk','123456','true'])
+
+await client.query(/*sql*/`INSERT INTO users (username,password,email,icon,address,phone_number,is_admin) VALUES ($1,$2,$3,$4,$5,$6,$7);`,['chung',await hashPassword('881229'),'hi11@gmail.com','test.jpg','hk','123456','false'])
+
+await client.query(/*sql*/`INSERT INTO shopping_cart (user_id) VALUES ($1);`,['1'])
+
+await client.query(/*sql*/`INSERT INTO shopping_cart (user_id) VALUES ($1);`,['2'])
+
 const result = await client.query(`SELECT * FROM users`)
 console.log(result.rows)
 
