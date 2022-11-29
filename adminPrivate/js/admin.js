@@ -58,8 +58,8 @@ getGames = async () => {
     gameLsDiv.appendChild(priceElement);
 
     gameListContainerDiv.appendChild(gameLsDiv);
-    
-    if(!game.is_valid){
+
+    if (!game.is_valid) {
       gameLsDiv.className = "game-ls opacity-25";
     }
   }
@@ -103,7 +103,6 @@ genGameModal = async () => {
       </div>
       `;
     gameListContainerDiv.innerHTML += gameListContainerInnerHTML;
- 
   }
   addToCart();
   delGame();
@@ -123,7 +122,7 @@ function displayGame() {
       console.log("servers response: ", resp);
       if (respJson.status === 200) {
         alert("displayed successfully.");
-        window.location = "./admin.html"
+        window.location = "./admin.html";
       } else {
         alert("Unable to display.");
       }
@@ -146,7 +145,7 @@ function delGame() {
       console.log("servers response: ", resp);
       if (respJson.status === 200) {
         alert("Deleted successfully.");
-        window.location = "./admin.html"
+        window.location = "./admin.html";
       } else {
         alert("Unable to delete.");
       }

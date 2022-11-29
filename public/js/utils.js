@@ -1,11 +1,4 @@
-window.onload = () => {
-  login();
-  register();
-  getGames();
-  genGameModal();
-};
-
-register = () => {
+function register() {
   document
     .querySelector("#registerForm")
     .addEventListener("submit", async (e) => {
@@ -36,9 +29,9 @@ register = () => {
         alert(data.message);
       }
     });
-};
+}
 
-login = () => {
+const login = () => {
   document.querySelector("#loginForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -55,14 +48,10 @@ login = () => {
 
     //admin login test
     if (res.status == "201") {
-      const { message } = await res.json();
-      console.log(message);
       window.location = "./admin.html";
     }
     //user
     else if (res.status == "200") {
-      const { message } = await res.json();
-      console.log(message);
       window.location = "./user.html";
     }
     // error
@@ -73,9 +62,9 @@ login = () => {
   });
 };
 
-getGames = async () => {
-  const res = await fetch("/product/xboxGames");
-  data = await res.json();
+const getGames = async (url) => {
+  const res = await fetch(url);
+  const data = await res.json();
   const gameListContainerDiv = document.querySelector(".gamelist-container");
 
   for (let game of data) {
@@ -109,39 +98,39 @@ getGames = async () => {
   }
 };
 
-genGameModal = async () => {
+const genGameModal = async () => {
   let gameListContainerInnerHTML = "";
 
   const res = await fetch("/product/games");
-  data = await res.json();
+  const data = await res.json();
 
   const gameListContainerDiv = document.querySelector(".gamelist-container");
 
   for (let game of data) {
     gameListContainerInnerHTML += `<div class="modal fade" id="game${game.id}" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-              <img class="col-md-6" src="./${game.image}">
-              <div class="col-md-5">
-                <div class="row gap-5">
-                <span class="fs-3">${game.name}</span>
-                <span class="text-start shadow p-3 mb-5 bg-body rounded">售價: ${game.price}</span>
-                <span class="text-start shadow p-3 mb-5 bg-body rounded">遊戲機: ${game.console}</span>
-                <span class="text-start shadow p-3 mb-5 bg-body rounded">遊戲介紹: ${game.description}</span>
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                <img class="col-md-6" src="./${game.image}">
+                <div class="col-md-5">
+                  <div class="row gap-5">
+                  <span class="fs-3">${game.name}</span>
+                  <span class="text-start shadow p-3 mb-5 bg-body rounded">售價: ${game.price}</span>
+                  <span class="text-start shadow p-3 mb-5 bg-body rounded">遊戲機: ${game.console}</span>
+                  <span class="text-start shadow p-3 mb-5 bg-body rounded">遊戲介紹: ${game.description}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="modal-footer">
+              <div class="modal-footer">
+              </div>
             </div>
           </div>
-        </div>
-      </div>`;
+        </div>`;
     gameListContainerDiv.innerHTML += gameListContainerInnerHTML;
   }
   console.log(data);

@@ -1,6 +1,5 @@
-
 function setHeader() {
-    document.querySelector('.header').innerHTML = `
+  document.querySelector(".header").innerHTML = `
     <div class="logo"><h1>Logo testing</h1></div>
     
     <div class="searchBar">
@@ -12,6 +11,6 @@ function setHeader() {
     <i class="bi bi-cart3"></i>
     <span>購物車</span>
     </div>
-  `
+  `;
 }
-setHeader()
+setHeader();

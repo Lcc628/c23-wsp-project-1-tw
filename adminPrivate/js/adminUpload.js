@@ -24,49 +24,48 @@ getUserInfo = async () => {
   userName.innerText = `username: ${data.username}`;
 };
 
-getGames = async() =>{
-  const res = await fetch('/product/games');
+getGames = async () => {
+  const res = await fetch("/product/games");
   data = await res.json();
 
   const gameListContainerDiv = document.querySelector(".gamelist-container");
 
   for (let game of data) {
-      const gameLsDiv = document.createElement("div");
-      const imgElement = document.createElement("img")
-      const desDiv = document.createElement("div");
-      const consoleElement = document.createElement("span")
-      const nameElement = document.createElement("h5")
-      const priceElement = document.createElement("h5")
+    const gameLsDiv = document.createElement("div");
+    const imgElement = document.createElement("img");
+    const desDiv = document.createElement("div");
+    const consoleElement = document.createElement("span");
+    const nameElement = document.createElement("h5");
+    const priceElement = document.createElement("h5");
 
-      gameLsDiv.className = "game-ls"
-      gameLsDiv.dataset.bsToggle = "modal"
+    gameLsDiv.className = "game-ls";
+    gameLsDiv.dataset.bsToggle = "modal";
 
-      gameLsDiv.dataset.bsTarget = `#game${game.id}`
+    gameLsDiv.dataset.bsTarget = `#game${game.id}`;
 
-      imgElement.src = './' + game.image;
-      desDiv.className = "des";
-      consoleElement.innerText = game.console;
-      nameElement.innerText = game.name;
-      priceElement.innerText = `$${game.price}`;
+    imgElement.src = "./" + game.image;
+    desDiv.className = "des";
+    consoleElement.innerText = game.console;
+    nameElement.innerText = game.name;
+    priceElement.innerText = `$${game.price}`;
 
-      desDiv.appendChild(consoleElement);
-      desDiv.appendChild(nameElement);
-      gameLsDiv.appendChild(imgElement);
-      gameLsDiv.appendChild(desDiv);
-      gameLsDiv.appendChild(priceElement);
+    desDiv.appendChild(consoleElement);
+    desDiv.appendChild(nameElement);
+    gameLsDiv.appendChild(imgElement);
+    gameLsDiv.appendChild(desDiv);
+    gameLsDiv.appendChild(priceElement);
 
-      gameListContainerDiv.appendChild(gameLsDiv)
-
+    gameListContainerDiv.appendChild(gameLsDiv);
   }
-}
-genGameModal = async() =>{
-  const res = await fetch('/product/games');
+};
+genGameModal = async () => {
+  const res = await fetch("/product/games");
   data = await res.json();
   let gameListContainerInnerHTML = "";
   const gameListContainerDiv = document.querySelector(".gamelist-container");
 
-  for(let game of data){
-      gameListContainerInnerHTML += `
+  for (let game of data) {
+    gameListContainerInnerHTML += `
       <div class="modal fade" id="game${game.id}" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -91,40 +90,40 @@ genGameModal = async() =>{
           </div>
         </div>
       </div>
-    </div>`
+    </div>`;
   }
-}
+};
 
 const uploadForm = async () => {
   const form = document.querySelector("#upform");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const formData = new FormData()
-    formData.append('customFile', form.customFile.files[0])
-    formData.append('productname', form.productname.value)
-    formData.append('price', form.price.value)
-    formData.append('gameplatform', form.gameplatform.value)
-    formData.append('gametype', form.gametype.value)
-    formData.append('description', form.description.value)
+    const formData = new FormData();
+    formData.append("customFile", form.customFile.files[0]);
+    formData.append("productname", form.productname.value);
+    formData.append("price", form.price.value);
+    formData.append("gameplatform", form.gameplatform.value);
+    formData.append("gametype", form.gametype.value);
+    formData.append("description", form.description.value);
 
-    formData.append('displayProduct', form.displayProduct.value)
-    
-console.log(formData)
+    formData.append("displayProduct", form.displayProduct.value);
+
+    console.log(formData);
 
     const resp = await fetch("/product", {
       method: "POST",
       body: formData,
     });
     if (resp.status === 200) {
-      const respJson = await resp.json()
-      console.log('server response: ', respJson)
-      alert("uploaded")
+      const respJson = await resp.json();
+      console.log("server response: ", respJson);
+      alert("uploaded");
     }
     if (resp.status === 400) {
-      alert('price is not number')
+      alert("price is not number");
     }
     if (resp.status === 401) {
-      alert('too expensive')
+      alert("too expensive");
     }
   });
 };

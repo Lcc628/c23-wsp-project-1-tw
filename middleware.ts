@@ -24,11 +24,11 @@ const form = formidable({
   maxFileSize: 200 * 1024 ** 2, // the default limit is 200KB
   filter: (part) => part.mimetype?.startsWith("image/") || false,
   filename: (originalName, originalExt, part, form) => {
-    counter++
-    let fieldName = part.name
-    let timestamp = Date.now()
-    let ext = part.mimetype?.split('/').pop()
-    return `${fieldName}-${timestamp}-${counter}.${ext}`
+    counter++;
+    let fieldName = part.name;
+    let timestamp = Date.now();
+    let ext = part.mimetype?.split("/").pop();
+    return `${fieldName}-${timestamp}-${counter}.${ext}`;
   },
 });
 
@@ -52,7 +52,6 @@ export const userLoggedInMiddleWare = (
   res: Response,
   next: NextFunction
 ) => {
-
   if (req.session.user) {
     next();
   } else {
@@ -60,14 +59,12 @@ export const userLoggedInMiddleWare = (
   }
 };
 
-
 export const adminLoggedInMiddleWare = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  
-  if (req.session.user?.isAdmin === true) {
+  if (req.session.user?.isAdmin) {
     next();
   } else {
     res.redirect("/");

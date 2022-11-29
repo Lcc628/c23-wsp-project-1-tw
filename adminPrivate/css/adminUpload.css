@@ -1,14 +1,14 @@
 /* Header */
-.header{
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-#userName{
+#userName {
   color: white;
 }
 
-.top{
+.top {
   background-color: rgb(56, 56, 56);
   z-index: 999;
   position: sticky;
@@ -21,53 +21,44 @@
   width: 100%;
 }
 
-.navbar-inner{
+.navbar-inner {
   display: flex;
 }
 
-.navbar li a:hover{
-color:white;
+.navbar li a:hover {
+  color: white;
 }
 
 .logo {
-  height:80px;
-  width:80px;
+  height: 80px;
+  width: 80px;
 }
-
 
 /* Header */
 
-
-
-
-
 /* Add-items */
-.Add-items{
+.Add-items {
   background-color: #3363e6;
   padding: 8px 16px;
   color: #fff;
   border: 1px solid #3363e6;
   border-radius: 5px;
-
 }
 
-
-.Add-items i{
-    padding-right: 6px;
+.Add-items i {
+  padding-right: 6px;
 }
 .Add-items:hover {
-    background-color: #244295;
+  background-color: #244295;
 }
 /* Add-items  */
 
-
-
 /* Product Card */
-#product1{
+#product1 {
   text-align: center;
 }
 
-#product1 .gamelist-container{
+#product1 .gamelist-container {
   display: flex;
   justify-content: start;
   padding-top: 20px;
@@ -75,26 +66,25 @@ color:white;
   gap: 24px;
 }
 
-#product1 .game-ls{
+#product1 .game-ls {
   /* width: 25%;
   min-width: 250px; */
   padding: 10px 12px;
-  border: 1px solid rgb(56, 56, 56) ;
+  border: 1px solid rgb(56, 56, 56);
   border-radius: 25px;
   cursor: pointer;
   box-shadow: 20px 20px 30px rgb(0, 0, 0, 0.02);
   margin: 15px 0;
   transition: 0.2sec ease;
-  flex:0 0 30%;
+  flex: 0 0 30%;
 }
 
-#product1 .game-ls:hover{
+#product1 .game-ls:hover {
   box-shadow: 20px 20px 30px rgb(0, 0, 0, 0.06);
 }
 
-
-#product1 .game-ls img{
-  width: 100% ;
+#product1 .game-ls img {
+  width: 100%;
   border-radius: 20px;
 }
 
@@ -108,30 +98,27 @@ color:white;
   font-size: 12px;
 }
 
-#product1 .game-ls .des h6{
+#product1 .game-ls .des h6 {
   padding-top: 7px;
   color: black;
   font-size: 14px;
 }
 
-#product1 .game-ls .des i{
+#product1 .game-ls .des i {
   font-size: 14px;
   color: rgb(240, 190, 9);
-  
 }
 
-#product1 .game-ls .des h5{
+#product1 .game-ls .des h5 {
   padding-top: 7px;
   font-size: 15px;
   font-weight: 700;
   color: rgb(1, 145, 49); /* not work*/
 }
 
-
 /* Product Card */
 
-
-.container{
+.container {
   padding-top: 0px;
   width: 100vw;
   display: flex;
@@ -140,62 +127,58 @@ color:white;
   flex-wrap: wrap;
 }
 
-.games-container{
+.games-container {
   padding-top: 20px;
   padding-bottom: 20px;
   width: 100vw;
   margin: 20px 20px;
 }
 
-.navbar-container{
+.navbar-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-
-
-.loginBox{
+.loginBox {
   width: 100vw;
   position: absolute;
   display: flex;
   justify-content: center;
   display: none;
 }
-.registerBox{
+.registerBox {
   width: 100vw;
   position: absolute;
   display: flex;
   justify-content: center;
   display: none;
 }
-.game{
+.game {
   width: 200px;
   height: 200px;
   box-shadow: 0px 5px 5px 0px black;
 }
-.nav-link{
+.nav-link {
   cursor: pointer;
 }
-.footerbar{
+.footerbar {
   display: flex;
   box-sizing: content-box;
   justify-content: center;
 }
 
-.f1-row{
+.f1-row {
   margin: 0;
-  padding:0;
+  padding: 0;
   text-align: auto;
 }
 
-
 /* Footer*/
-.section-p1{
+.section-p1 {
   display: flex;
   flex-wrap: wrap;
 }
-
 
 footer {
   display: flex;
@@ -203,46 +186,44 @@ footer {
   flex-wrap: wrap;
 }
 
-footer .col{
+footer .col {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin: 20px;
 }
 
-footer .logo2{
+footer .logo2 {
   margin-bottom: 30px;
 }
 
-footer .h4{
+footer .h4 {
   font-size: 14px;
   padding-bottom: 20px;
 }
 
-footer p{
+footer p {
   font-size: 13px;
   margin: 0 0 8px 0;
 }
 
-footer a{
+footer a {
   font-size: 13px;
   text-decoration: none;
   color: #222;
   margin-bottom: 10px;
 }
 
-footer .copyright{
+footer .copyright {
   width: 100%;
   text-align: center;
 }
 /* Footer */
 
-
 @media only screen and (max-width: 580px) {
   .container {
     flex-direction: column;
   }
-
 }
 
 /* Up-Items */
@@ -252,13 +233,11 @@ footer .copyright{
   align-items: center;
   margin: 0 auto;
   margin-top: 24px;
-  
 }
 .upform {
- width: 70%;
- margin: 0 auto;
-margin-top: 24px;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 24px;
 }
 
 /* Up-Items */
-
